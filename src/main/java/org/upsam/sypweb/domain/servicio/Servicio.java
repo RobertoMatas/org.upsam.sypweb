@@ -39,7 +39,7 @@ public class Servicio {
 	private String descripcion;
 
 	@OneToMany(mappedBy = "servicio")
-	@OrderBy("diaSemanda, hora ASC")
+	@OrderBy("diaSemana, hora ASC")
 	private List<Horario> disponibilidad = new ArrayList<Horario>();
 
 	@OneToMany(mappedBy = "servicio")

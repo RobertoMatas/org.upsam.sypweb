@@ -45,6 +45,19 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.0-801.jdbc4</version>
+		</dependency>
+
+		<!-- LOGGING -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>concejalia</finalName>

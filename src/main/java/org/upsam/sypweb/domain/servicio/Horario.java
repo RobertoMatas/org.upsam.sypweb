@@ -19,7 +19,7 @@ public class Horario {
 
 	private Integer servicioId;
 
-	private Integer diaSemanda;
+	private Integer diaSemana;
 
 	@Column(length = 6)
 	private String hora;
@@ -58,17 +58,17 @@ public class Horario {
 	}
 
 	/**
-	 * @return the diaSemanda
+	 * @return the diaSemana
 	 */
-	public Integer getDiaSemanda() {
-		return diaSemanda;
+	public Integer getDiaSemana() {
+		return diaSemana;
 	}
 
 	/**
-	 * @param diaSemanda the diaSemanda to set
+	 * @param diaSemana the diaSemana to set
 	 */
-	public void setDiaSemanda(Integer diaSemanda) {
-		this.diaSemanda = diaSemanda;
+	public void setDiaSemana(Integer diaSemana) {
+		this.diaSemana = diaSemana;
 	}
 
 	/**

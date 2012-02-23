@@ -31,6 +31,7 @@ public class DocumentoAdjunto {
 	
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
+	@Column(columnDefinition = "BYTEA")
 	private byte[] documento;
 	
 	@ManyToOne
