@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
@@ -17,15 +16,6 @@ import org.upsam.sypweb.domain.citas.Citacion;
 import org.upsam.sypweb.domain.user.User;
 
 @Entity
-@NamedQuery(
-	name  = "getListServiciosUtilizados",
-	query = "SELECT DISTINCT s " +
-			"FROM Servicio s " +
-			"JOIN s.citaciones citas " +
-			"JOIN citas.persona p " +
-			"WHERE citas.acudio = TRUE " +
-			"AND p = :persona"
-)
 public class Servicio {
 	
 	@Id

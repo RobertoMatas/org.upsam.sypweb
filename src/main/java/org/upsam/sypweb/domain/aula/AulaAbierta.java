@@ -11,47 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.upsam.sypweb.domain.mujer.Mujer;
 
 @Entity
-@NamedQueries({
-	@NamedQuery(
-		name  = "getListAulaAbiertaTalleresDisponibles",
-		query = "SELECT DISTINCT aa " +
-				"FROM AulaAbierta aa " +
-				"WHERE aa.inicio > :fecha " +
-				"AND aa.id NOT IN " +
-				"( " +
-					"SELECT aa2.id " +
-					"FROM AulaAbierta aa2 " +
-					"JOIN aa2.personas p " +
-					"WHERE p = :persona " +
-				" )"
-	),
-	@NamedQuery(
-		name  = "getListAulaAbiertaNoComenzados",
-		query = "SELECT DISTINCT aa " +
-		        "FROM AulaAbierta aa " +
-				"JOIN aa.personas p " +
-				"WHERE p = :persona " +
-				"AND aa.inicio > :fecha"
-	),
-	@NamedQuery(
-		name  = "getListAulaAbiertaCursaEnFecha",
-		query = "SELECT DISTINCT aa " +
-				"FROM AulaAbierta aa " +
-				"JOIN aa.personas p " +
-				"WHERE p = :persona " +
-				"AND aa.inicio <= :fecha1 " +
-				"AND aa.fin >= :fecha2"
-	)
-})
-
 public class AulaAbierta {
 	
 	@Id

@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -17,26 +15,6 @@ import org.upsam.sypweb.domain.mujer.Mujer;
 import org.upsam.sypweb.domain.servicio.Servicio;
 
 @Entity
-@NamedQueries({
-	@NamedQuery(
-		name  = "getListCitacionEnFechaNoAcudidas",
-		query = "SELECT DISTINCT c " +
-				"FROM Citacion c " +
-				"WHERE c.servicio = :servicio " +
-				"AND c.cita = :cita " +
-				"AND c.hora >= :hora " +
-				"AND c.acudio = FALSE " +
-				"ORDER BY c.cita, c.hora" 
-	),
-	@NamedQuery(
-		name  = "getListCitacionMayorIgualQueFecha",
-		query = "SELECT DISTINCT c " +
-				"FROM Citacion c " +
-				"WHERE c.servicio = :servicio " +
-				"AND c.cita >= :cita" 
-	)
-	
-})
 public class Citacion { 
 
 	@Id

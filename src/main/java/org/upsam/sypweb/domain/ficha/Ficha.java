@@ -9,8 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,23 +17,6 @@ import org.upsam.sypweb.domain.mujer.Mujer;
 import org.upsam.sypweb.domain.servicio.Servicio;
 
 @Entity
-@NamedQueries({
-	@NamedQuery(
-		name  = "getHistorialFichas",
-		query = "SELECT f " +
-				"FROM Ficha f " +
-				"WHERE f.persona = :persona " +
-				"AND f.cerrada = TRUE"
-	),	
-	@NamedQuery(
-		name  = "getFichaAbierta",
-		query = "SELECT f " +
-				"FROM Ficha f " +
-				"WHERE f.persona = :persona " +
-				"AND f.servicio = :servicio " +
-				"AND f.cerrada = FALSE"
-	)
-})
 public class Ficha {
 	
 	@Id

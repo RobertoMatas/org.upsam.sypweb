@@ -9,15 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQuery(
-	name  = "getContentType",
-	query = "SELECT da.tipo " +
-			"FROM DocumentoAdjunto da " +
-			"WHERE da.id = :docId"
-)
 public class DocumentoAdjunto {
 	
 	@Id

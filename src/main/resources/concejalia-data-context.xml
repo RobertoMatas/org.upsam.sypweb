@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd">
+
+	<context:property-placeholder location="classpath:concejalia-config.properties" />
+
+	<bean class="java.net.URI" id="dbUrl">
+		<constructor-arg value="${DATABASE_URL}" />
+	</bean>
+	 
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="persistenceUnitName" value="concejalia" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="${jpa.config.showsql}" />
+				<property name="generateDdl" value="${jpa.config.generateDdl}" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<tx:annotation-driven />
+
+	<jpa:repositories base-package="org.upsam.sypweb.domain" />
+	
+	<beans profile="dev">
+        <jdbc:embedded-database id="dataSource">
+            <jdbc:script
+                location="classpath:data/schema.sql"/>
+            <jdbc:script
+                location="classpath:data/cargaInicial.sql"/>
+        </jdbc:embedded-database>
+	</beans>
+	
+	<beans profile="prod">
+		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+			<property name="driverClassName" value="${jdbc.database.driverClassName}" />
+			<property name="url"
+				value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + @dbUrl.getPath() }" />
+			<property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }" />
+			<property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }" />
+		</bean>
+	</beans>
+	
+</beans>
