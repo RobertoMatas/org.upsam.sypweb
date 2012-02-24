@@ -47,7 +47,7 @@
         </jdbc:embedded-database>
 	</beans>
 	
-	<beans profile="prod">
+	<beans profile="production">
 		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 			<property name="driverClassName" value="${jdbc.database.driverClassName}" />
 			<property name="url"

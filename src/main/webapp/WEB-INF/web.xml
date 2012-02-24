@@ -5,7 +5,10 @@
 	<servlet>
 		<servlet-name>concejalia</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
+		<init-param>
+			<param-name>spring.profiles.active</param-name>
+			<param-value>production</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>concejalia</servlet-name>
@@ -16,6 +19,10 @@
 		<param-value>
 			classpath:concejalia-context.xml
 		</param-value>
+	</context-param>
+	<context-param>
+		<param-name>contextInitializerClasses</param-name>
+		<param-value>org.upsam.sypweb.init.ContextProfileInitializer</param-value>
 	</context-param>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

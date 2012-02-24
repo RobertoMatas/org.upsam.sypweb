@@ -1,3 +1,6 @@
+<!-- CABECERA -->
+<%@ tag body-content="empty" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div align="center">
 <table width="85%" class="cabecera" align="center" cellpadding="0" cellspacing="0">
 	<tr>
@@ -20,7 +23,7 @@
 			  	</tr>
 				<tr>
 					<td height="37" colspan="2" align="center">
-				  		<img src="res/img/user-group4.gif" />
+				  		<img src="<c:url value="/resources/img/user-group4.gif" />" />
 						<label class="dlabel">
 							Administrativo
 						</label>
@@ -32,3 +35,4 @@
 	</tr>    
 </table>
 </div>
+<!-- FIN CABECERA -->

@@ -1,20 +1,22 @@
+<%@ tag body-content="empty" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- MENU -->
 <div align="center">
 <div class="page-container">
 	<div class="dropnav">
       <ul>
         <li>
-			<a  href="<c:url value="/inicio.htm" />">Inicio</a>
+			<a href="<c:url value="/inicio.htm" />">Inicio</a>
 		</li>
       </ul>       
       <ul>
         <li>
-			<a  href="<c:url value="/addEditCiudadano.htm" />">Registrar Ciudadano</a>
+			<a href="<c:url value="/addEditCiudadano.htm" />">Registrar Ciudadano</a>
 		</li>
       </ul>       
       <ul>
         <li>
-			<a  href="<c:url value="/busqCiudadanos.htm" />">Consultar Ciudadanos</a>
+			<a href="<c:url value="/busqCiudadanos.htm" />">Consultar Ciudadanos</a>
 		</li>
       </ul>
       <ul>

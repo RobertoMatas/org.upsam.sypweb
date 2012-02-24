@@ -2,9 +2,10 @@ package org.upsam.sypweb.domain.mujer;
 
 import java.util.List;
 
-import com.mysema.query.types.Predicate;
+import org.upsam.sypweb.view.BusqMujerView;
+import org.upsam.sypweb.view.MujerView;
 
 public interface MujerService {
 
-	List<Mujer> findAll(Predicate filter);
+	List<MujerView> findAll(BusqMujerView filter);
 }
