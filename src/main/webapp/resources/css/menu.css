@@ -1,0 +1,35 @@
+/****************************************************************/
+/*   Design:   Multiflex-3.9 / Drop-Down Menu                   */
+/*--------------------------------------------------------------*/
+/*   Design:   1234.info, based on Stu Nichols ingenious        */
+/*             designs over at www.cssplay.co.uk                */
+/*   Date:     September 21, 2007                               */
+/*--------------------------------------------------------------*/
+/*   License:  Public domain.                                   */
+/****************************************************************/
+
+/***************/
+/*  1. PAGE  */
+/***************/
+
+*{padding:0; margin:0;}
+ body {font-size:55%; font-family:"trebuchet ms" verdana,arial,sans-serif;} /*Font-size: 1.0em = 10px when browser default size is 16px*/
+.page-container {width:85%; margin:0px auto; margin-top:0px; border:none; font-size:1.0em;}
+
+/**********************/
+/*  2. DROP-DOWN MENU */
+/**********************/
+
+/*Basic Setup*/
+.dropnav {white-space:nowrap /*IE hack*/; float:left; width:100%; border:none; margin-top:0px; background:rgb(225,225,225); color:rgb(75,75,75); font-size:130%;} /*Color navigation bar normal mode*/
+.dropnav ul {list-style-type:none;}
+.dropnav ul li {float:left; z-index:auto !important /*Non-IE6*/; z-index:1000 /*IE6*/; border-right:solid 1px rgb(175,175,175);}
+.dropnav ul li a {float:none !important /*Non-IE6*/; float:left /*IE-6*/; display:block; height:3.1em; line-height:3.1em; padding:0 16px 0 16px; text-decoration:none; font-weight:bold; color: rgb(100,100,100);}
+.dropnav ul li ul {display:none; border:none;}
+
+/*Non-IE6 hovering*/
+.dropnav ul li:hover {position:relative;} /*Sylvain IE hack*/
+.dropnav ul li:hover a {background-color:rgb(210,210,210); text-decoration:none;} /*Color main cells hovering mode*/
+.dropnav ul li:hover ul {display:block; width:10.0em; position:absolute; z-index:999; top:3.0em; margin-top:0.1em; left:0;}
+.dropnav ul li:hover ul li a {white-space:normal; display:block; width:10.0em; height:auto; line-height:1.3em; margin-left:-1px; padding:4px 16px 4px 16px; border-left:solid 1px rgb(175,175,175); border-bottom: solid 1px rgb(175,175,175); background-color:rgb(237,237,237); font-weight:normal; color:rgb(50,50,50);} /*Color subcells normal mode*/
+.dropnav ul li:hover ul li a:hover {background-color:rgb(210,210,210); text-decoration:none;} /*Color subcells hovering mode*/

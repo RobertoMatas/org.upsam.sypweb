@@ -7,6 +7,10 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
+		<config>src/main/resources/concejalia-data-context.xml</config>
+		<config>target/concejalia/WEB-INF/classes/concejalia-data-context.xml</config>
+		<config>src/main/resources/concejalia-view-context.xml</config>
+		<config>src/test/resources/testContext.xml</config>
 	</configs>
 	<configSets>
 	</configSets>
