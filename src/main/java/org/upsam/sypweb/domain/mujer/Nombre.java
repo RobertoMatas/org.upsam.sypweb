@@ -2,20 +2,30 @@ package org.upsam.sypweb.domain.mujer;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Embeddable
 public class Nombre {
 
 	@Column(nullable = false, length = 9)
+	@NotNull
+	@Size(min = 1, max = 9)
 	private String dni;
 
 	@Column(nullable = false, length = 60)
+	@NotNull
+	@Size(min = 1, max = 60)
 	private String nombre;
 
 	@Column(nullable = false, length = 30)
+	@NotNull
+	@Size(min = 1, max = 30)
 	private String apellido1;
 
 	@Column(nullable = false, length = 30)
+	@NotNull
+	@Size(min = 1, max = 30)
 	private String apellido2;
 
 	/**

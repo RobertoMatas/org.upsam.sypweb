@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 
 @Entity
 public class Domicilio {
@@ -26,9 +27,11 @@ public class Domicilio {
 	private String poblacion;
 
 	@ManyToOne
+	@Valid
 	private TipoDireccion tipoDireccion;
 
 	@ManyToOne
+	@Valid
 	private Provincia provincia;
 
 	/**

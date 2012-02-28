@@ -7,14 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 import org.upsam.sypweb.domain.mujer.MujerService;
 import org.upsam.sypweb.view.BusqMujerView;
 
 @Controller
 @RequestMapping("/mujeres/buscar")
-@SessionAttributes("busq")
 public class MujerController {
 	/**
 	 * Servicio para la gestión de mujeres
@@ -41,9 +38,9 @@ public class MujerController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String submitSearchForm(@ModelAttribute BusqMujerView busq, Model model, SessionStatus status) {
+	public String submitSearchForm(@ModelAttribute BusqMujerView busq, Model model) {
 		model.addAttribute("mujeres", mujerService.findAll(busq));
-		status.setComplete();
+		model.addAttribute("busq", busq);
 		return "searchResults";
 	}
 }

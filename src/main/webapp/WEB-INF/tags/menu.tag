@@ -11,12 +11,12 @@
       </ul>       
       <ul>
         <li>
-			<a href="<c:url value="/addEditCiudadano.htm" />">Registrar Ciudadano</a>
+			<a href="<c:url value="/mujeres/edit" />">Registrar Mujer</a>
 		</li>
       </ul>       
       <ul>
         <li>
-			<a href="<c:url value="/busqCiudadanos.htm" />">Consultar Ciudadanos</a>
+			<a href="<c:url value="/mujeres/buscar" />">Consultar Mujeres</a>
 		</li>
       </ul>
       <ul>

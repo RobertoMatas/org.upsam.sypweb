@@ -11,12 +11,6 @@
 <link href="<c:url value="/resources/css/menu.css" />" rel="stylesheet" type="text/css" />
 </head>
 <body id="main">
-<%--
-<%@include file="../bloques/cabecera.jsp"%>
-<%@include file="../bloques/menu.jsp"%>
-<br />
-<%@include file="../bloques/searchForm.jsp"%>
- --%>
 <my:cabecera/>
 <my:menu/>
 <my:searchForm busq="${busq}" />

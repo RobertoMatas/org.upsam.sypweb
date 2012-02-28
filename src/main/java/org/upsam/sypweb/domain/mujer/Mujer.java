@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Nullable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -15,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.Past;
 
 import org.upsam.sypweb.domain.aula.AulaAbierta;
 import org.upsam.sypweb.domain.citas.Citacion;
@@ -31,7 +34,9 @@ public class Mujer {
 	private Boolean empadronada;
 
 	private Date fechaAlta;
-
+	
+	@Nullable
+	@Past
 	private Date fechaNac;
 
 	@Column(length = 10)
@@ -45,6 +50,7 @@ public class Mujer {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(unique = true)
+	@Valid
 	private Domicilio domicilio;
 
 	@OneToMany(mappedBy = "mujer")
@@ -54,6 +60,7 @@ public class Mujer {
 	private List<AulaAbierta> talleres = new ArrayList<AulaAbierta>();
 
 	@Embedded
+	@Valid
 	private Nombre nombre;
 
 	/**
