@@ -165,9 +165,6 @@
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>
-						<goals>
-							<goal>process</goal>
-						</goals>
 						<configuration>
 							<outputDirectory>src/main/java</outputDirectory>
 							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
