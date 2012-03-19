@@ -1,6 +1,5 @@
 package org.upsam.sypweb.domain.mujer;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,13 +9,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import org.upsam.sypweb.domain.mujer.domicilio.Domicilio;
 import org.upsam.sypweb.domain.mujer.domicilio.Provincia;
 import org.upsam.sypweb.domain.mujer.domicilio.ProvinciaRepository;
 import org.upsam.sypweb.domain.mujer.domicilio.TipoDireccion;
 import org.upsam.sypweb.domain.mujer.domicilio.TipoDireccionRepository;
 import org.upsam.sypweb.view.BusqMujerView;
-import org.upsam.sypweb.view.DomicilioView;
 import org.upsam.sypweb.view.MujerView;
 
 import com.mysema.query.types.Predicate;
@@ -38,30 +35,32 @@ public class MujerServiceImpl implements MujerService {
 	 * Repositorio de la entidad {@link TipoDireccion}
 	 */
 	private TipoDireccionRepository tipoDireccionRepository;
+	/**
+	 * Converter de {@link Mujer} a {@link MujerView}
+	 */
+	private MujerConverter mujerConverter;
 
 	/**
 	 * @param mujerRepository
 	 */
 	@Inject
-	public MujerServiceImpl(MujerRepository mujerRepository, ProvinciaRepository provinciaRepository, TipoDireccionRepository tipoDireccionRepository) {
+	public MujerServiceImpl(MujerRepository mujerRepository,
+			ProvinciaRepository provinciaRepository,
+			TipoDireccionRepository tipoDireccionRepository,
+			MujerConverter mujerConverter) {
 		super();
 		this.mujerRepository = mujerRepository;
 		this.provinciaRepository = provinciaRepository;
 		this.tipoDireccionRepository = tipoDireccionRepository;
+		this.mujerConverter = mujerConverter;
 	}
 
 	@Override
 	public List<MujerView> findAll(BusqMujerView filter) {
-		Predicate predicate = getPredicate(filter);
-		
-		Iterable<Mujer> it = mujerRepository.findAll(predicate);
-		List<MujerView> mujeres = new ArrayList<MujerView>();
-		for (Mujer mujer : it) {
-			mujeres.add(toViewBean(mujer));
-		}
-		return mujeres;
+		return mujerConverter.convert(mujerRepository
+				.findAll(getPredicate(filter)));
 	}
-	
+
 	@Override
 	public Mujer find(Long id) {
 		return mujerRepository.findOne(id);
@@ -71,7 +70,7 @@ public class MujerServiceImpl implements MujerService {
 	@Transactional
 	public void save(Mujer mujer) {
 		mujer.setFechaAlta(new Date());
-		mujerRepository.save(mujer);		
+		mujerRepository.save(mujer);
 	}
 
 	@Override
@@ -97,53 +96,30 @@ public class MujerServiceImpl implements MujerService {
 				be = QMujer.mujer.nombre.nombre.like(nombre);
 			}
 			if (StringUtils.hasText(ap1)) {
-				BooleanExpression ap1Like = QMujer.mujer.nombre.apellido1.like(ap1);
-				be = be != null ? be.and(ap1Like) : ap1Like; 
-			}			
+				BooleanExpression ap1Like = QMujer.mujer.nombre.apellido1
+						.like(ap1);
+				be = be != null ? be.and(ap1Like) : ap1Like;
+			}
 			if (StringUtils.hasText(ap2)) {
-				BooleanExpression ap2Like = QMujer.mujer.nombre.apellido1.like(ap2);
-				be = be != null ? be.and(ap2Like) : ap2Like; 
+				BooleanExpression ap2Like = QMujer.mujer.nombre.apellido1
+						.like(ap2);
+				be = be != null ? be.and(ap2Like) : ap2Like;
 			}
 			if (StringUtils.hasText(dni)) {
 				BooleanExpression dniEq = QMujer.mujer.nombre.dni.eq(dni);
-				be = be != null ? be.and(dniEq) : dniEq; 
+				be = be != null ? be.and(dniEq) : dniEq;
 			}
 			if (StringUtils.hasText(tFijo)) {
 				BooleanExpression tFijoEq = QMujer.mujer.telfFijo.eq(tFijo);
-				be = be != null ? be.and(tFijoEq) : tFijoEq; 
+				be = be != null ? be.and(tFijoEq) : tFijoEq;
 			}
 			if (StringUtils.hasText(tMovil)) {
 				BooleanExpression tMovilEq = QMujer.mujer.telfFijo.eq(tMovil);
-				be = be != null ? be.and(tMovilEq) : tMovilEq; 
+				be = be != null ? be.and(tMovilEq) : tMovilEq;
 			}
 			return be;
 		}
 		return null;
 	}
 
-	private MujerView toViewBean(Mujer mujer) {
-		MujerView view = null;
-		DomicilioView dView = null;
-		if (mujer != null) {
-			view = new MujerView();
-			dView = new DomicilioView();
-			Domicilio domicilio = mujer.getDomicilio();
-			Nombre nombre = mujer.getNombre();
-			dView.setLetra(String.valueOf(domicilio.getLetra()));
-			dView.setNombreAvenida(domicilio.getNombreAvenida());
-			dView.setNombreProvincia(domicilio.getProvincia().getNombre());
-			dView.setPiso(domicilio.getPiso() != null ? domicilio.getPiso().toString() : "");
-			dView.setPoblacion(domicilio.getPoblacion());
-			dView.setTipoDireccion(domicilio.getTipoDireccion().getTipo());
-			view.setDomicilio(dView);
-			view.setApellido1(nombre.getApellido1());
-			view.setApellido2(nombre.getApellido2());
-			view.setDni(nombre.getDni());
-			view.setFechaNac(mujer.getFechaNac());
-			view.setTelfFijo(mujer.getTelfFijo());
-			view.setTelfMovil(mujer.getTelfMovil());
-			view.setId(mujer.getId());			
-		}
-		return view;
-	}
 }

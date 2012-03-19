@@ -35,18 +35,19 @@ public class SchemaExport {
 		config.addAnnotatedClass(Citacion.class);
 		config.addAnnotatedClass(AulaAbierta.class);
 		config.addAnnotatedClass(Taller.class);
-		/*
+		
 		config.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 		config.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
 		config.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/concejalia");
 		config.setProperty("hibernate.connection.username", "postgres");
 		config.setProperty("hibernate.connection.password", "postgres");
-		*/
+		/*
 		config.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
 		config.setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbcDriver");
 		config.setProperty("hibernate.connection.url", "jdbc:hsqldb:mem:.");
 		config.setProperty("hibernate.connection.username", "sa");
 		config.setProperty("hibernate.connection.password", "");
+		*/
 		org.hibernate.tool.hbm2ddl.SchemaExport schemaExport = new org.hibernate.tool.hbm2ddl.SchemaExport(config);
 		schemaExport.setOutputFile(FILENAME);
 		schemaExport.create(true, false);

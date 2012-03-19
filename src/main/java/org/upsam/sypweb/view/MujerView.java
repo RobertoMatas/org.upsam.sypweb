@@ -20,6 +20,14 @@ public class MujerView extends BusqMujerView implements Serializable {
 	/**
 	 * 
 	 */
+	private Date fechaAlta;
+	/**
+	 * 
+	 */
+	private Boolean empadronada;
+	/**
+	 * 
+	 */
 	private DomicilioView domicilio;
 
 	/**
@@ -50,6 +58,36 @@ public class MujerView extends BusqMujerView implements Serializable {
 	 */
 	public void setFechaNac(Date fechaNac) {
 		this.fechaNac = fechaNac;
+	}
+
+	/**
+	 * @return the fechaAlta
+	 */
+	public Date getFechaAlta() {
+		return fechaAlta;
+	}
+
+	/**
+	 * @param fechaAlta
+	 *            the fechaAlta to set
+	 */
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+	/**
+	 * @return the empadronada
+	 */
+	public Boolean getEmpadronada() {
+		return empadronada;
+	}
+
+	/**
+	 * @param empadronada
+	 *            the empadronada to set
+	 */
+	public void setEmpadronada(Boolean empadronada) {
+		this.empadronada = empadronada;
 	}
 
 	/**
