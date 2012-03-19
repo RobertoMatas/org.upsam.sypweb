@@ -9,7 +9,7 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 import org.upsam.sypweb.domain.mujer.Mujer;
 
-public interface ServicioRepository extends QueryDslPredicateExecutor<Servicio>, JpaRepository<Servicio, Long>, JpaSpecificationExecutor<Servicio> {
+public interface ServicioRepository extends QueryDslPredicateExecutor<Servicio>, JpaRepository<Servicio, Integer>, JpaSpecificationExecutor<Servicio> {
 	
 	@Query("SELECT DISTINCT s " +
 			"FROM Servicio s " +

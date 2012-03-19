@@ -18,6 +18,10 @@ public class CitacionView implements Serializable {
 	 */
 	private Date cita;
 	/**
+	 * Id del servicio
+	 */
+	private Integer servicioId;
+	/**
 	 * Nombre del servicio
 	 */
 	private String servicio;
@@ -36,6 +40,13 @@ public class CitacionView implements Serializable {
 
 	/**
 	 * 
+	 */
+	public CitacionView() {
+		super();
+	}
+
+	/**
+	 * 
 	 * @param id
 	 * @param servicio
 	 * @param responsable
@@ -43,11 +54,12 @@ public class CitacionView implements Serializable {
 	 * @param hora
 	 * @param acudio
 	 */
-	public CitacionView(Long id, String servicio, String responsable,
-			Date cita, String hora, Boolean acudio) {
+	public CitacionView(Long id, Integer servicioId, String servicio,
+			String responsable, Date cita, String hora, Boolean acudio) {
 		super();
 		this.setId(id);
 		this.cita = cita;
+		this.setServicioId(servicioId);
 		this.servicio = servicio;
 		this.responsable = responsable;
 		this.hora = hora;
@@ -97,6 +109,21 @@ public class CitacionView implements Serializable {
 	 */
 	public void setHora(String hora) {
 		this.hora = hora;
+	}
+
+	/**
+	 * @return the servicioId
+	 */
+	public Integer getServicioId() {
+		return servicioId;
+	}
+
+	/**
+	 * @param servicioId
+	 *            the servicioId to set
+	 */
+	public void setServicioId(Integer servicioId) {
+		this.servicioId = servicioId;
 	}
 
 	/**

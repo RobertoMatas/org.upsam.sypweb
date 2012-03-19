@@ -1,4 +1,4 @@
-package org.upsam.sypweb.controller;
+package org.upsam.sypweb.controller.citas;
 
 import javax.inject.Inject;
 
@@ -31,4 +31,5 @@ public class CitasController {
 		model.addAttribute("details", mujerServiceFacade.find(mujerId));
 		return "listarCitas";
 	}
+
 }

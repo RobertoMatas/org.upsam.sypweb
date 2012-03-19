@@ -11,4 +11,6 @@ public interface CitacionService {
 	List<CitacionView> getCitasPendientes(Mujer mujer);
 	
 	List<CitacionView> getCitasPendientes(Mujer mujer, User usuario);
+	
+	List<CitacionView> getCitasDisponibles(Integer servicioId);
 }

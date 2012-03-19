@@ -13,7 +13,7 @@ public class CitacionConverter extends AbstractConvert<Citacion, CitacionView> {
 		CitacionView view = null;
 		if (source != null) {
 			Servicio servicio = source.getServicio();
-			view = new CitacionView(source.getId(), servicio.getDescripcion(),
+			view = new CitacionView(source.getId(), servicio.getId(), servicio.getDescripcion(),
 					servicio.getResponsable().getUserName(), source.getCita(),
 					source.getHora(), source.getAcudio());
 		}
