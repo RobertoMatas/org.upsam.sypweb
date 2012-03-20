@@ -1,5 +1,7 @@
 package org.upsam.sypweb.controller.citas;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.upsam.sypweb.domain.citas.CitacionService;
 import org.upsam.sypweb.domain.mujer.Mujer;
 import org.upsam.sypweb.domain.servicio.Servicio;
@@ -18,7 +21,7 @@ import org.upsam.sypweb.facade.MujerServiceFacade;
 import org.upsam.sypweb.view.CitacionView;
 
 @Controller
-@SessionAttributes("citacion")
+@SessionAttributes({"citacion", "citaciones"})
 public class NewCitaController {
 	/**
 	 * Servicio de fachada para la gestión de {@link Mujer}
@@ -61,6 +64,24 @@ public class NewCitaController {
 		mujerId = (Long) (mujerId != null ? mujerId : session.getAttribute("mujerId"));
 		referenceData(mujerId, model);
 		model.addAttribute("citaciones", citacionService.getCitasDisponibles(citacion.getServicioId()));
+		return "newCita";
+	}
+	
+	@RequestMapping(value = "/cita/new/finish", method = RequestMethod.POST)
+	@SuppressWarnings("unchecked")
+	public String submitCitaSelection(@ModelAttribute CitacionView citacion, @RequestParam(required = false) Long mujerId, @RequestParam Integer citasel, Model model, HttpSession session, SessionStatus status) {
+		mujerId = (Long) (mujerId != null ? mujerId : session.getAttribute("mujerId"));
+		List<CitacionView> citaciones = (List<CitacionView>) session.getAttribute("citaciones");
+		if (citaciones != null && citasel != null) {
+			CitacionView citaSelected = citaciones.get(citasel);
+			citacionService.citar(mujerId, citaSelected);
+			status.setComplete();
+			return "redirect:/listarCitas?mujerId=" + mujerId;
+			
+		} else {
+			referenceData(mujerId, model);
+			model.addAttribute("citaciones", citacionService.getCitasDisponibles(citacion.getServicioId()));
+		}
 		return "newCita";
 	}
 

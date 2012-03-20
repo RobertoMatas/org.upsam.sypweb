@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.upsam.sypweb.domain.mujer.Mujer;
+import org.upsam.sypweb.domain.mujer.MujerRepository;
 import org.upsam.sypweb.domain.servicio.Horario;
 import org.upsam.sypweb.domain.servicio.Servicio;
 import org.upsam.sypweb.domain.servicio.ServicioRepository;
@@ -42,6 +43,10 @@ public class CitacionServiceImpl implements CitacionService {
 	 * Repositorio de la entidad {@link Servicio}
 	 */
 	private ServicioRepository servicioRepository;
+	/**
+	 * Repositorio de la entidad {@link Mujer}
+	 */
+	private MujerRepository mujerRepository;
 
 	/**
 	 * 
@@ -49,12 +54,25 @@ public class CitacionServiceImpl implements CitacionService {
 	 * @param citacionConverter
 	 */
 	@Inject
-	public CitacionServiceImpl(CitacionRepository citacionRepository, ServicioRepository servicioRepository, 
-			CitacionConverter citacionConverter) {
+	public CitacionServiceImpl(CitacionRepository citacionRepository, ServicioRepository servicioRepository,
+			MujerRepository mujerRepository, CitacionConverter citacionConverter) {
 		super();
 		this.servicioRepository = servicioRepository;
 		this.citacionRepository = citacionRepository;
+		this.mujerRepository = mujerRepository;
 		this.citacionConverter = citacionConverter;
+	}
+	
+	@Override
+	@Transactional
+	public void citar(Long mujerId, CitacionView cita) {
+		Citacion citacion = new Citacion();
+		citacion.setAcudio(false);
+		citacion.setCita(cita.getCita());
+		citacion.setHora(cita.getHora());
+		citacion.setServicio(servicioRepository.findOne(cita.getServicioId()));
+		citacion.setMujer(mujerRepository.findOne(mujerId));
+		citacionRepository.save(citacion);
 	}
 
 	@Override

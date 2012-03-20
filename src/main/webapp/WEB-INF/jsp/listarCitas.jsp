@@ -58,7 +58,7 @@
 			
 			<td width="10%" align="right">
 				<label class="label0">
-					${cita.hora}&nbsp;horas
+					${fn:substring(cita.hora,0,2)}:${fn:substring(cita.hora,2,4)}&nbsp;horas
 				</label>
 			</td>
 		</tr>
@@ -97,7 +97,7 @@
 			
 			<td width="10%" align="right">
 				<label class="label0">
-					${cita.hora}&nbsp;horas
+					${fn:substring(cita.hora,0,2)}:${fn:substring(cita.hora,2,4)}&nbsp;horas
 				</label>
 			</td>
 			<td width="5%" height="21" align="center">
