@@ -6,5 +6,5 @@
 
 	<import resource="classpath:concejalia-view-context.xml" />
 	<import resource="classpath:concejalia-data-context.xml" />
-	
+	<import resource="classpath:concejalia-mail-context.xml" />
 </beans>

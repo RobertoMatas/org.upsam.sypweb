@@ -67,7 +67,7 @@
     				<td width="20%" align="right">
 						<label class="dlabel">Fecha Nac.:</label>
 					</td>
-    				<td colspan="3">
+    				<td>
     					<form:input path="fechaNac" size="12" maxlength="10" />
     					<img align="middle" src="<c:url value="/resources/js/calendariojs/icons/calendar1.gif" />" border="0" id="icon"  onmouseover="this.style.cursor='pointer'" onmouseout="this.style.cursor='default'" />
     						<script type="text/javascript">
@@ -84,6 +84,12 @@
 							});
 						</script>
 					</td>
+					<td width="20%" align="right">
+						<label class="dlabel">Email:</label>
+				  	</td>
+    				<td width="20%">
+    					<form:input path="nombre.email" size="30" maxlength="50" cssErrorClass="derror" />
+				  	</td>
   				</tr>
 		  </table>		
 		</td>
@@ -180,7 +186,7 @@
 				  	</td>
 					<td>
 						<form:input path="telfMovil" size="20" maxlength="10" />
-					</td>				
+					</td>
 				</tr>
 
 		  </table>		

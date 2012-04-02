@@ -1,0 +1,10 @@
+<html>
+<body>
+<h3>Concejalía de Mujer</h3>
+
+<div>
+   <p>Se ha registrado su cita para ${cita.servicio} a las ${cita.hora} del día ${cita.cita}</p>
+</div>
+</body>
+
+</html>

@@ -87,8 +87,8 @@
 						<img src="<c:url value="/resources/img/pto-ver.gif" />" />
 					</c:if>
 				</td>
-				<td align="left">&nbsp;</td>
-				<td>&nbsp;</td>
+				<td class="dlabel" align="left">Email:</td>
+				<td><label class="label0"><c:out value="${mujer.email}" /></label></td>
 			</tr>
 		</table>
 		<table width="100%">

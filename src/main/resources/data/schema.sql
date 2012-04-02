@@ -5,7 +5,7 @@ create table DocumentoAdjunto (id  bigserial not null, descripcion varchar(255),
 create table Domicilio (id  bigserial not null, escalera varchar(255), letra char(1), nombreAvenida varchar(255), numero int4, piso int4, poblacion varchar(255), provincia_id int4, tipoDireccion_id int4, primary key (id));
 create table Ficha (id  bigserial not null, apertura date, cerrada bool, cierre date, descripcion varchar(255), mujer_id int8, servicio_id int4, primary key (id));
 create table Horario (id  serial not null, diaSemana int4, hora varchar(6), servicioId int4, servicio_id int4, primary key (id));
-create table Mujer (id  bigserial not null, empadronada bool, fechaAlta timestamp, fechaNac timestamp, apellido1 varchar(30) not null, apellido2 varchar(30) not null, dni varchar(9) not null, nombre varchar(60) not null, telfFijo varchar(10), telfMovil varchar(10), domicilio_id int8 unique, primary key (id));
+create table Mujer (id  bigserial not null, empadronada bool, fechaAlta timestamp, fechaNac timestamp, apellido1 varchar(30) not null, apellido2 varchar(30) not null, dni varchar(9) not null, email varchar(50) not null, nombre varchar(60) not null, telfFijo varchar(10), telfMovil varchar(10), domicilio_id int8 unique, primary key (id));
 create table Mujer_AulaAbierta (personas_id int8 not null, talleres_id int8 not null);
 create table Provincia (id  serial not null, codigo varchar(2) not null unique, nombre varchar(30) not null unique, primary key (id));
 create table Seguimiento (id  bigserial not null, fecha date, observaciones varchar(255), ficha_id int8, primary key (id));

@@ -3,6 +3,7 @@ package org.upsam.sypweb.domain.mujer;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Embeddable
@@ -27,6 +28,12 @@ public class Nombre {
 	@NotNull
 	@Size(min = 1, max = 30)
 	private String apellido2;
+	
+	@Column(nullable = false, length = 50)
+	@NotNull
+	@Size(min = 1, max = 50)
+	@Pattern(regexp = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
+	private String email;
 
 	/**
 	 * @return the dni
@@ -86,6 +93,14 @@ public class Nombre {
 	 */
 	public void setApellido2(String apellido2) {
 		this.apellido2 = apellido2;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

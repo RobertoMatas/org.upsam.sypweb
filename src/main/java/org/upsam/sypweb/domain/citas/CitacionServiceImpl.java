@@ -19,6 +19,7 @@ import org.upsam.sypweb.domain.servicio.Horario;
 import org.upsam.sypweb.domain.servicio.Servicio;
 import org.upsam.sypweb.domain.servicio.ServicioRepository;
 import org.upsam.sypweb.domain.user.User;
+import org.upsam.sypweb.email.ConcejaliaMailingService;
 import org.upsam.sypweb.view.CitacionView;
 
 import com.mysema.query.types.Predicate;
@@ -47,6 +48,10 @@ public class CitacionServiceImpl implements CitacionService {
 	 * Repositorio de la entidad {@link Mujer}
 	 */
 	private MujerRepository mujerRepository;
+	/**
+	 * Servicio de envío de mails
+	 */
+	private ConcejaliaMailingService mailingService;
 
 	/**
 	 * 
@@ -55,12 +60,13 @@ public class CitacionServiceImpl implements CitacionService {
 	 */
 	@Inject
 	public CitacionServiceImpl(CitacionRepository citacionRepository, ServicioRepository servicioRepository,
-			MujerRepository mujerRepository, CitacionConverter citacionConverter) {
+			MujerRepository mujerRepository, CitacionConverter citacionConverter, ConcejaliaMailingService mailingService) {
 		super();
 		this.servicioRepository = servicioRepository;
 		this.citacionRepository = citacionRepository;
 		this.mujerRepository = mujerRepository;
 		this.citacionConverter = citacionConverter;
+		this.mailingService = mailingService;
 	}
 	
 	@Override
@@ -71,8 +77,12 @@ public class CitacionServiceImpl implements CitacionService {
 		citacion.setCita(cita.getCita());
 		citacion.setHora(cita.getHora());
 		citacion.setServicio(servicioRepository.findOne(cita.getServicioId()));
-		citacion.setMujer(mujerRepository.findOne(mujerId));
+		Mujer mujer = mujerRepository.findOne(mujerId);
+		citacion.setMujer(mujer);
 		citacionRepository.save(citacion);
+		mailingService.sendAppointmentConfirmation(
+					new CitaDTO(cita.getServicio(), cita.getCita(), cita.getHora(), mujer.getNombre().getNombre(), "rober.atsistemas@gmail.com")
+				);
 	}
 
 	@Override

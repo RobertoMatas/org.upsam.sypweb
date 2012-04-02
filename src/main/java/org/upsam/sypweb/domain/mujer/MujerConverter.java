@@ -33,7 +33,8 @@ public class MujerConverter extends AbstractConvert<Mujer, MujerView> {
 			view.setFechaNac(source.getFechaNac());
 			view.setTelfFijo(source.getTelfFijo());
 			view.setTelfMovil(source.getTelfMovil());
-			view.setId(source.getId());			
+			view.setId(source.getId());
+			view.setEmail(nombre.getEmail());
 		}
 		return view;
 	}

@@ -24,6 +24,8 @@ public class QNombre extends BeanPath<Nombre> {
 
     public final StringPath dni = createString("dni");
 
+    public final StringPath email = createString("email");
+
     public final StringPath nombre = createString("nombre");
 
     public QNombre(String variable) {
