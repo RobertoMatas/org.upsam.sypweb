@@ -104,8 +104,8 @@ public class CitacionServiceImpl implements CitacionService {
 		return cita.mujer
 				.eq(mujer)
 				.and(cita.acudio.eq(false))
-				.and(cita.cita.after(now).or(cita.cita.eq(now))
-						.and(cita.hora.gt(df.format(now))));
+				.and(cita.cita.after(now).or(cita.cita.eq(now)
+						.and(cita.hora.gt(df.format(now)))));
 	}
 
 	@Override

@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Past;
 
@@ -32,11 +34,12 @@ public class Mujer {
 	private Long id;
 
 	private Boolean empadronada;
-
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaAlta;
 	
 	@Nullable
 	@Past
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaNac;
 
 	@Column(length = 10)
