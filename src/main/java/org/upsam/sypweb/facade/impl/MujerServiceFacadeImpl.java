@@ -60,7 +60,7 @@ public class MujerServiceFacadeImpl implements MujerServiceFacade {
 	 */
 	@Inject
 	public MujerServiceFacadeImpl(ServicioService servicioService,
-			CitacionService citacionService, MujerService mujerService,
+			MujerService mujerService, CitacionService citacionService,
 			MujerConverter mujerConverter, CitacionConverter citacionConverter,
 			AulaConverter aulaConverter) {
 		super();
@@ -79,7 +79,7 @@ public class MujerServiceFacadeImpl implements MujerServiceFacade {
 		MujerDetailedView view = new MujerDetailedView();
 		BeanUtils.copyProperties(mujerView, view);
 		view.setUsedServices(servicioService.getUsedUservicesBy(mujer));
-		view.setCitasPendientes(citacionService.getCitasPendientes(mujer));
+		view.setCitasPendientes(citacionService.getCitasPendientes(mujerId));
 		view.setHistoricoCitas(citacionConverter.convert(mujer.getCitaciones()));
 		view.setTalleres(aulaConverter.convert(mujer.getTalleres()));
 		return view;

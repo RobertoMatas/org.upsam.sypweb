@@ -22,11 +22,13 @@
 <br />
 <c:url var="urlSubmit" value="/mujeres/edit" />
 <form:form method="POST" commandName="mujer" modelAttribute="mujer" action="${urlSubmit}">
-<center><form:errors path="nombre.dni" cssClass="error" /></center>
-<center><form:errors path="nombre.nombre" cssClass="error" /></center>
-<center><form:errors path="nombre.apellido1" cssClass="error" /></center>
-<center><form:errors path="nombre.apellido2" cssClass="error" /></center>
+<center><form:errors path="dni" cssClass="error" /></center>
+<center><form:errors path="nombre" cssClass="error" /></center>
+<center><form:errors path="apellido1" cssClass="error" /></center>
+<center><form:errors path="apellido2" cssClass="error" /></center>
 <br />
+
+<form:hidden path="id"/>
 <table width="85%" border="0" align="center" class="box1b" cellpadding="5" cellspacing="5">
 	<tr>
     	<td height="25" class="head1">REGISTRO CIUDADAN@S</td>
@@ -42,19 +44,19 @@
 						<label class="dlabel">Nombre:</label>
 				  	</td>
    					<td width="20%">
-   						<form:input path="nombre.nombre" size="30" cssErrorClass="derror" />
+   						<form:input path="nombre" size="30" cssErrorClass="derror" />
    				  	</td>
     				<td width="23%" align="right">
 						<label class="dlabel">Primer Apellido:</label>
 				  	</td>
     				<td width="20%">
-    					<form:input path="nombre.apellido1" size="30" cssErrorClass="derror" />
+    					<form:input path="apellido1" size="30" cssErrorClass="derror" />
 				  	</td>
     				<td width="20%" align="right">
 						<label class="dlabel">2º Apellido:</label>
 				  	</td>
     				<td width="20%">
-    					<form:input path="nombre.apellido2" size="30" cssErrorClass="derror" />
+    					<form:input path="apellido2" size="30" cssErrorClass="derror" />
 				  	</td>
   				</tr>
 				<tr>
@@ -62,7 +64,7 @@
 						<label class="dlabel">DNI:</label>
 				  </td>
    					<td width="20%">
-   						<form:input path="nombre.dni" size="30" cssErrorClass="derror" />
+   						<form:input path="dni" size="30" cssErrorClass="derror" />
     				</td>
     				<td width="20%" align="right">
 						<label class="dlabel">Fecha Nac.:</label>
@@ -88,7 +90,7 @@
 						<label class="dlabel">Email:</label>
 				  	</td>
     				<td width="20%">
-    					<form:input path="nombre.email" size="30" maxlength="50" cssErrorClass="derror" />
+    					<form:input path="email" size="30" maxlength="50" cssErrorClass="derror" />
 				  	</td>
   				</tr>
 		  </table>		
@@ -112,7 +114,7 @@
 						<label class="dlabel">Dirección:</label>				  	
 					</td>
 					<td colspan="3" align="left">
-						<form:select path="domicilio.tipoDireccion.id" cssClass="dlist"> 
+						<form:select path="domicilio.tipoDireccionId" cssClass="dlist"> 
 							<form:options items="${listTipoDir}" itemLabel="tipo" itemValue="id" />
 						</form:select>
 					</td>
@@ -153,7 +155,7 @@
 				  	<label class="dlabel">Provincia:</label>		
 				  </td>
 				  <td colspan="3">				    
-				  	<form:select path="domicilio.provincia.id" cssClass="dlist">
+				  	<form:select path="domicilio.provinciaId" cssClass="dlist">
 						<form:options items="${listProvincias}" itemLabel="nombre" itemValue="id" />
 					</form:select>
 				  </td>

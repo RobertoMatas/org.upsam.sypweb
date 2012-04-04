@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+	
+	<import resource="classpath:app-context/data/concejalia-data-dev-context.xml" />
+	<import resource="classpath:app-context/data/concejalia-data-production-context.xml" />
+	<import resource="classpath:app-context/data/concejalia-data-common-context.xml" />
+	<import resource="classpath:app-context/mail/concejalia-mail-context.xml" />
+	<import resource="classpath:app-context/view/concejalia-view-context.xml" />
+	
+</beans>

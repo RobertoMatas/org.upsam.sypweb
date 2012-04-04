@@ -43,10 +43,10 @@ public class NewCitaController {
 	public NewCitaController(MujerServiceFacade mujerServiceFacade, ServicioService servicioService, CitacionService citacionService) {
 		super();
 		this.mujerServiceFacade = mujerServiceFacade;
-		this.servicioService = servicioService;
+		this.servicioService = servicioService;		
 		this.citacionService = citacionService;
 	}
-	
+
 	@ModelAttribute("citacion")
 	public CitacionView modelAttribute() {
 		return new CitacionView();

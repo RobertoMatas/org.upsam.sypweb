@@ -1,6 +1,5 @@
 package org.upsam.sypweb.domain.mujer;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -65,12 +64,21 @@ public class MujerServiceImpl implements MujerService {
 	public Mujer find(Long id) {
 		return mujerRepository.findOne(id);
 	}
+	
+	@Override
+	public MujerView findForEdit(Long id) {
+		return mujerConverter.convert(find(id));
+	}
 
 	@Override
 	@Transactional
-	public void save(Mujer mujer) {
-		mujer.setFechaAlta(new Date());
-		mujerRepository.save(mujer);
+	public void save(MujerView mujer) {
+		Mujer m = null;
+		if (mujer.getId() != null) {
+			m = find(mujer.getId());
+		}		
+		mujerConverter.convert(mujer, m);
+		mujerRepository.save(m);
 	}
 
 	@Override
@@ -121,5 +129,4 @@ public class MujerServiceImpl implements MujerService {
 		}
 		return null;
 	}
-
 }

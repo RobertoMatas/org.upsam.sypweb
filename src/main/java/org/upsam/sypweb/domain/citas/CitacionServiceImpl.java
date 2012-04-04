@@ -9,23 +9,25 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 
-import org.springframework.stereotype.Service;
+import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 import org.springframework.transaction.annotation.Transactional;
 import org.upsam.sypweb.domain.mujer.Mujer;
 import org.upsam.sypweb.domain.mujer.MujerRepository;
 import org.upsam.sypweb.domain.servicio.Horario;
 import org.upsam.sypweb.domain.servicio.Servicio;
 import org.upsam.sypweb.domain.servicio.ServicioRepository;
-import org.upsam.sypweb.domain.user.User;
 import org.upsam.sypweb.email.ConcejaliaMailingService;
 import org.upsam.sypweb.view.CitacionView;
 
 import com.mysema.query.types.Predicate;
 
 @Transactional(readOnly = true)
-@Service
+@Stateless(name = "ejb/CitacionServiceBean")
+@Interceptors(SpringBeanAutowiringInterceptor.class)
 public class CitacionServiceImpl implements CitacionService {
 	private static final int MAX_CITAS = 20;
 	/**
@@ -55,20 +57,11 @@ public class CitacionServiceImpl implements CitacionService {
 
 	/**
 	 * 
-	 * @param citacionRepository
-	 * @param citacionConverter
 	 */
-	@Inject
-	public CitacionServiceImpl(CitacionRepository citacionRepository, ServicioRepository servicioRepository,
-			MujerRepository mujerRepository, CitacionConverter citacionConverter, ConcejaliaMailingService mailingService) {
+	public CitacionServiceImpl() {
 		super();
-		this.servicioRepository = servicioRepository;
-		this.citacionRepository = citacionRepository;
-		this.mujerRepository = mujerRepository;
-		this.citacionConverter = citacionConverter;
-		this.mailingService = mailingService;
 	}
-	
+
 	@Override
 	@Transactional
 	public void citar(Long mujerId, CitacionView cita) {
@@ -86,14 +79,14 @@ public class CitacionServiceImpl implements CitacionService {
 	}
 
 	@Override
-	public List<CitacionView> getCitasPendientes(Mujer mujer) {
+	public List<CitacionView> getCitasPendientes(Long mujerId) {
 		Iterable<Citacion> citasPendientes = citacionRepository
-				.findAll(getCitasPendientesPredicate(mujer));
+				.findAll(getCitasPendientesPredicate(mujerRepository.findOne(mujerId)));
 		return citacionConverter.convert(citasPendientes);
 	}
 
 	@Override
-	public List<CitacionView> getCitasPendientes(Mujer mujer, User usuario) {
+	public List<CitacionView> getCitasPendientes(Long mujerId, String userName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -231,6 +224,46 @@ public class CitacionServiceImpl implements CitacionService {
 		}
 
 		return citaciones;
+	}
+
+	/**
+	 * @param citacionRepository the citacionRepository to set
+	 */
+	@Inject
+	public void setCitacionRepository(CitacionRepository citacionRepository) {
+		this.citacionRepository = citacionRepository;
+	}
+
+	/**
+	 * @param citacionConverter the citacionConverter to set
+	 */
+	@Inject
+	public void setCitacionConverter(CitacionConverter citacionConverter) {
+		this.citacionConverter = citacionConverter;
+	}
+
+	/**
+	 * @param servicioRepository the servicioRepository to set
+	 */
+	@Inject
+	public void setServicioRepository(ServicioRepository servicioRepository) {
+		this.servicioRepository = servicioRepository;
+	}
+
+	/**
+	 * @param mujerRepository the mujerRepository to set
+	 */
+	@Inject
+	public void setMujerRepository(MujerRepository mujerRepository) {
+		this.mujerRepository = mujerRepository;
+	}
+
+	/**
+	 * @param mailingService the mailingService to set
+	 */
+	@Inject
+	public void setMailingService(ConcejaliaMailingService mailingService) {
+		this.mailingService = mailingService;
 	}
 
 }

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.upsam.sypweb.domain.mujer.Mujer;
 import org.upsam.sypweb.domain.mujer.MujerService;
+import org.upsam.sypweb.view.MujerView;
 
 @Controller
 @RequestMapping("/mujeres/edit")
@@ -34,8 +34,9 @@ public class RegisterMujerController {
 	}
 
 	@ModelAttribute("mujer")
-	public Mujer modelAttribute(@RequestParam(required = false) Long mujerId) {
-		return mujerId != null ? mujerService.find(mujerId) : new Mujer();
+	public MujerView modelAttribute(@RequestParam(required = false) Long mujerId) {
+		MujerView view = mujerId != null ? mujerService.findForEdit(mujerId) : new MujerView();
+		return view;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -45,7 +46,7 @@ public class RegisterMujerController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String submitEditForm(@Valid @ModelAttribute Mujer mujer, BindingResult result, Model model, SessionStatus status) {
+	public String submitEditForm(@Valid @ModelAttribute MujerView mujer, BindingResult result, Model model, SessionStatus status) {
 		if (!result.hasErrors()) {
 			mujerService.save(mujer);
 			status.setComplete();

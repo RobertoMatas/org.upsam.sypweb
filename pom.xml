@@ -146,6 +146,14 @@
 			<version>4.2.0.Final</version>
 		</dependency>
 		
+		<!-- EJB -->
+		<dependency>
+			<groupId>javax.ejb</groupId>
+			<artifactId>ejb-api</artifactId>
+			<version>3.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
 		<!-- EMAIL -->
 		<dependency>
 			<groupId>javax.mail</groupId>

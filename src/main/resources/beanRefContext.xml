@@ -4,7 +4,8 @@
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
-	<import resource="classpath:concejalia-view-context.xml" />
-	<import resource="classpath:concejalia-data-context.xml" />
-	<import resource="classpath:concejalia-mail-context.xml" />
+	<bean name="concejalia-context"
+		class="org.springframework.context.support.ClassPathXmlApplicationContext">
+		<constructor-arg value="app-context/concejalia-context.xml" />
+	</bean>
 </beans>

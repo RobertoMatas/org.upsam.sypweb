@@ -35,6 +35,14 @@ public class MujerView extends BusqMujerView implements Serializable {
 	private DomicilioView domicilio;
 
 	/**
+	 * 
+	 */
+	public MujerView() {
+		super();
+		this.domicilio = new DomicilioView();
+	}
+
+	/**
 	 * @return the id
 	 */
 	public Long getId() {

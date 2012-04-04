@@ -8,12 +8,14 @@ import org.upsam.sypweb.view.BusqMujerView;
 import org.upsam.sypweb.view.MujerView;
 
 public interface MujerService {
-
+	
 	Mujer find(Long id);
+	
+	MujerView findForEdit(Long id);
 	
 	List<MujerView> findAll(BusqMujerView filter);
 	
-	void save(Mujer mujer);
+	void save(MujerView mujer);
 	
 	List<Provincia> getProvincias();
 	

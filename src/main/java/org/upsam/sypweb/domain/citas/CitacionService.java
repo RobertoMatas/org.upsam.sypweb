@@ -2,15 +2,16 @@ package org.upsam.sypweb.domain.citas;
 
 import java.util.List;
 
-import org.upsam.sypweb.domain.mujer.Mujer;
-import org.upsam.sypweb.domain.user.User;
+import javax.ejb.Remote;
+
 import org.upsam.sypweb.view.CitacionView;
 
+@Remote
 public interface CitacionService {
 
-	List<CitacionView> getCitasPendientes(Mujer mujer);
+	List<CitacionView> getCitasPendientes(Long mujerId);
 	
-	List<CitacionView> getCitasPendientes(Mujer mujer, User usuario);
+	List<CitacionView> getCitasPendientes(Long mujerId, String userName);
 	
 	List<CitacionView> getCitasDisponibles(Integer servicioId);
 	

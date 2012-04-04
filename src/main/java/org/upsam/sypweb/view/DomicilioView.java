@@ -8,7 +8,10 @@ public class DomicilioView implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -8576596755204073152L;
-
+	/**
+	 * 
+	 */
+	private Integer tipoDireccionId;
 	/**
 	 * 
 	 */
@@ -20,6 +23,10 @@ public class DomicilioView implements Serializable {
 	/**
 	 * 
 	 */
+	private Integer numero;
+	/**
+	 * 
+	 */
 	private String piso;
 	/**
 	 * 
@@ -28,11 +35,34 @@ public class DomicilioView implements Serializable {
 	/**
 	 * 
 	 */
+	private String escalera;
+	/**
+	 * 
+	 */
 	private String poblacion;
 	/**
 	 * 
 	 */
+	private Integer provinciaId;
+	/**
+	 * 
+	 */
 	private String nombreProvincia;
+
+	/**
+	 * @return the tipoDireccionId
+	 */
+	public Integer getTipoDireccionId() {
+		return tipoDireccionId;
+	}
+
+	/**
+	 * @param tipoDireccionId
+	 *            the tipoDireccionId to set
+	 */
+	public void setTipoDireccionId(Integer tipoDireccionId) {
+		this.tipoDireccionId = tipoDireccionId;
+	}
 
 	/**
 	 * @return the tipoDireccion
@@ -65,6 +95,21 @@ public class DomicilioView implements Serializable {
 	}
 
 	/**
+	 * @return the numero
+	 */
+	public Integer getNumero() {
+		return numero;
+	}
+
+	/**
+	 * @param numero
+	 *            the numero to set
+	 */
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
+	/**
 	 * @return the piso
 	 */
 	public String getPiso() {
@@ -84,6 +129,21 @@ public class DomicilioView implements Serializable {
 	 */
 	public String getLetra() {
 		return letra;
+	}
+
+	/**
+	 * @return the escalera
+	 */
+	public String getEscalera() {
+		return escalera;
+	}
+
+	/**
+	 * @param escalera
+	 *            the escalera to set
+	 */
+	public void setEscalera(String escalera) {
+		this.escalera = escalera;
 	}
 
 	/**
@@ -107,6 +167,21 @@ public class DomicilioView implements Serializable {
 	 */
 	public void setPoblacion(String poblacion) {
 		this.poblacion = poblacion;
+	}
+
+	/**
+	 * @return the provinciaId
+	 */
+	public Integer getProvinciaId() {
+		return provinciaId;
+	}
+
+	/**
+	 * @param provinciaId
+	 *            the provinciaId to set
+	 */
+	public void setProvinciaId(Integer provinciaId) {
+		this.provinciaId = provinciaId;
 	}
 
 	/**

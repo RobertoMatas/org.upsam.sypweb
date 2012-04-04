@@ -76,8 +76,7 @@ public class Mujer {
 	/**
 	 * @param id the id to set
 	 */
-	@SuppressWarnings("unused")
-	private void setId(Long id) {
+	protected void setId(Long id) {
 		this.id = id;
 	}
 
