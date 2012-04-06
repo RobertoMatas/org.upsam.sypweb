@@ -49,14 +49,15 @@ public class MujerServiceFacadeImpl implements MujerServiceFacade {
 	 * {@link Converter} de {@link AulaAbierta} a {@link TallerView}
 	 */
 	private AulaConverter aulaConverter;
-
+	
 	/**
 	 * 
 	 * @param servicioService
-	 * @param citacionService
 	 * @param mujerService
+	 * @param citacionService
 	 * @param mujerConverter
 	 * @param citacionConverter
+	 * @param aulaConverter
 	 */
 	@Inject
 	public MujerServiceFacadeImpl(ServicioService servicioService,
@@ -73,6 +74,7 @@ public class MujerServiceFacadeImpl implements MujerServiceFacade {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public MujerDetailedView find(Long mujerId) {
 		Mujer mujer = mujerService.find(mujerId);
 		MujerView mujerView = mujerConverter.convert(mujer);
@@ -82,7 +84,9 @@ public class MujerServiceFacadeImpl implements MujerServiceFacade {
 		view.setCitasPendientes(citacionService.getCitasPendientes(mujerId));
 		view.setHistoricoCitas(citacionConverter.convert(mujer.getCitaciones()));
 		view.setTalleres(aulaConverter.convert(mujer.getTalleres()));
+
 		return view;
 	}
+
 
 }

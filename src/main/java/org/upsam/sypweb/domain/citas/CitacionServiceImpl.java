@@ -25,9 +25,9 @@ import org.upsam.sypweb.view.CitacionView;
 
 import com.mysema.query.types.Predicate;
 
-@Transactional(readOnly = true)
 @Stateless(name = "ejb/CitacionServiceBean")
 @Interceptors(SpringBeanAutowiringInterceptor.class)
+@Transactional(readOnly = true)
 public class CitacionServiceImpl implements CitacionService {
 	private static final int MAX_CITAS = 20;
 	/**

@@ -27,4 +27,10 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<!-- 
+	<resource-ref>
+		<res-ref-name>jdbc/ConcejaliaDS</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>		
+	</resource-ref>
+	 -->
 </web-app>

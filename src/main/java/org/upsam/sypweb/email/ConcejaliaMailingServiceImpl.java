@@ -47,7 +47,7 @@ public class ConcejaliaMailingServiceImpl implements ConcejaliaMailingService {
 				message.setFrom("administrador@concejalia.es");
 				Map<String, CitaDTO> model = new HashMap<String, CitaDTO>();
 				model.put("cita", cita);
-				String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "email/appointment-confirmation.vm", model);
+				String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "email/appointment-confirmation.vm", "UTF-8", model);
 				message.setText(text, true);
 			}
 		};
