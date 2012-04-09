@@ -29,7 +29,7 @@ import com.mysema.query.types.Predicate;
 @Interceptors(SpringBeanAutowiringInterceptor.class)
 @Transactional(readOnly = true)
 public class CitacionServiceImpl implements CitacionService {
-	private static final int MAX_CITAS = 20;
+	private final int MAX_CITAS = 20;
 	/**
 	 * Formato de hora usado
 	 */
