@@ -28,7 +28,9 @@
 <center><form:errors path="apellido2" cssClass="error" /></center>
 <br />
 
-<form:hidden path="id"/>
+<c:if test="${mujer.id != null}">
+	<form:hidden path="id"/>
+</c:if>
 <table width="85%" border="0" align="center" class="box1b" cellpadding="5" cellspacing="5">
 	<tr>
     	<td height="25" class="head1">REGISTRO CIUDADAN@S</td>

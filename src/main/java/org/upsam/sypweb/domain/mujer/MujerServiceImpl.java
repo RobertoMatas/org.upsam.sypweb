@@ -73,10 +73,7 @@ public class MujerServiceImpl implements MujerService {
 	@Override
 	@Transactional
 	public void save(MujerView mujer) {
-		Mujer m = null;
-		if (mujer.getId() != null) {
-			m = find(mujer.getId());
-		}		
+		Mujer m = mujer.getId() != null ? find(mujer.getId()) : new Mujer();
 		mujerConverter.convert(mujer, m);
 		mujerRepository.save(m);
 	}

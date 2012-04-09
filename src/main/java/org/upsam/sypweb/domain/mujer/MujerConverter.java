@@ -56,12 +56,12 @@ public class MujerConverter extends AbstractConvert<Mujer, MujerView> {
 	public void convert(final MujerView source, Mujer destination) {
 		if (source != null) {
 			if (destination == null) {
-				destination = new Mujer();
+				throw new IllegalArgumentException("El parámetro destintation no puede ser null");
 			}
 			DomicilioView dView = source.getDomicilio();
 			Domicilio domicilio = destination.getDomicilio() != null ? destination.getDomicilio() : new Domicilio();
-			TipoDireccion tp = domicilio.getTipoDireccion() != null ? domicilio.getTipoDireccion() : new TipoDireccion();
-			Provincia provincia = domicilio.getProvincia() != null ? domicilio.getProvincia() : new Provincia();
+			TipoDireccion tp = new TipoDireccion();
+			Provincia provincia = new Provincia();
 			if (dView != null) {
 				domicilio.setEscalera(dView.getEscalera());
 				domicilio.setLetra(StringUtils.hasText(dView.getLetra()) ? dView.getLetra().charAt(0) : null);
@@ -72,10 +72,12 @@ public class MujerConverter extends AbstractConvert<Mujer, MujerView> {
 				//provincia.setNombre(dView.getNombreProvincia());
 				if (provincia.getId() == null) {
 					provincia.setId(dView.getProvinciaId());
-					provincia.setCodigo(dView.getNombreProvincia().toUpperCase());
+					//provincia.setCodigo(dView.getNombreProvincia().toUpperCase());
 				}
 				//tp.setTipo(dView.getTipoDireccion());
 				tp.setId(dView.getTipoDireccionId());
+				domicilio.setTipoDireccion(tp);
+				domicilio.setProvincia(provincia);
 				destination.setDomicilio(domicilio);
 				destination.setFechaAlta(new Date());
 				destination.setFechaNac(source.getFechaNac());
