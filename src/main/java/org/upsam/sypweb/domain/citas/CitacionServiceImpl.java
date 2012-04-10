@@ -15,12 +15,12 @@ import javax.interceptor.Interceptors;
 
 import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 import org.springframework.transaction.annotation.Transactional;
+import org.upsam.sypweb.async.NotificationService;
 import org.upsam.sypweb.domain.mujer.Mujer;
 import org.upsam.sypweb.domain.mujer.MujerRepository;
 import org.upsam.sypweb.domain.servicio.Horario;
 import org.upsam.sypweb.domain.servicio.Servicio;
 import org.upsam.sypweb.domain.servicio.ServicioRepository;
-import org.upsam.sypweb.email.ConcejaliaMailingService;
 import org.upsam.sypweb.view.CitacionView;
 
 import com.mysema.query.types.Predicate;
@@ -51,9 +51,9 @@ public class CitacionServiceImpl implements CitacionService {
 	 */
 	private MujerRepository mujerRepository;
 	/**
-	 * Servicio de envío de mails
+	 * Servicio de notificaciones vía email
 	 */
-	private ConcejaliaMailingService mailingService;
+	private NotificationService notificationService;
 
 	/**
 	 * 
@@ -73,9 +73,9 @@ public class CitacionServiceImpl implements CitacionService {
 		Mujer mujer = mujerRepository.findOne(mujerId);
 		citacion.setMujer(mujer);
 		citacionRepository.save(citacion);
-		mailingService.sendAppointmentConfirmation(
-					new CitaDTO(cita.getServicio(), cita.getCita(), cita.getHora(), mujer.getNombre().getNombre(), "rober.atsistemas@gmail.com")
-				);
+		notificationService.sendAppointmentConfirmation(
+			new CitaDTO(cita.getServicio(), cita.getCita(), cita.getHora(), mujer.getNombre().getNombre(), "rober.atsistemas@gmail.com")
+		);
 	}
 
 	@Override
@@ -259,11 +259,10 @@ public class CitacionServiceImpl implements CitacionService {
 	}
 
 	/**
-	 * @param mailingService the mailingService to set
+	 * @param notificationService the notificationService to set
 	 */
 	@Inject
-	public void setMailingService(ConcejaliaMailingService mailingService) {
-		this.mailingService = mailingService;
+	public void setNotificationService(NotificationService notificationService) {
+		this.notificationService = notificationService;
 	}
-
 }

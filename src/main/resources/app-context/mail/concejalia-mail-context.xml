@@ -7,6 +7,10 @@
 
 	<jee:jndi-lookup id="mailSession" jndi-name="mail/ConcejaliaMS" />
 	
+	<jee:jndi-lookup id="jmsConnFactory" jndi-name="jms/ConcejaliaConnectionFactory" />
+	
+	<jee:jndi-lookup id="destination" jndi-name="jms/ConcejaliaQueue" />
+	
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="session" ref="mailSession" />	
 	</bean>
@@ -22,4 +26,8 @@
 		</property>
 	</bean>
 
+	<bean id="jsmTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="jmsConnFactory" />
+	</bean>
+	
 </beans>
