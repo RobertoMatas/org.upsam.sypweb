@@ -63,9 +63,6 @@ public class NewCitaController {
 	public String submitServiceSelection(@ModelAttribute("citacion") CitacionView citacion, @RequestParam(required = false) Long mujerId, Model model, HttpSession session) {
 		mujerId = (Long) (mujerId != null ? mujerId : session.getAttribute("mujerId"));
 		referenceData(mujerId, model);
-		model.addAttribute("citaciones", citacionService.getCitasDisponibles(citacion.getServicioId()));
-		System.out.println("Servicio seleccionado:" + citacion.getServicioId());
-		//model.addAttribute("citacion", citacion);
 		return "newCita";
 	}
 	
