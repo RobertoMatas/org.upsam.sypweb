@@ -18,7 +18,7 @@
 <my:detalleMujer mujer="${details}"/>
 <br />
 
-<my:tabpannel target="listarCitas">
+<my:tabpannel target="/listarCitas">
 <br />
 <!-- Tabla con las distintas pendientes (la fecha actual es inferior a la de la cita) -->
 <div align="left">

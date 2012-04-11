@@ -17,7 +17,7 @@
 <my:detalleMujer mujer="${details}"/>
 <br />
 
-<my:tabpannel target="newCita">
+<my:tabpannel target="/cita/new">
 <br />
 <my:formServiceSelection listServicios="${listServicios }"/>
 <c:if test="${not empty citaciones}">
