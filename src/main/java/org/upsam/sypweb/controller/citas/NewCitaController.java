@@ -60,16 +60,18 @@ public class NewCitaController {
 	}
 	
 	@RequestMapping(value = "/cita/new", method = RequestMethod.POST)
-	public String submitServiceSelection(@ModelAttribute CitacionView citacion, @RequestParam(required = false) Long mujerId, Model model, HttpSession session) {
+	public String submitServiceSelection(@ModelAttribute("citacion") CitacionView citacion, @RequestParam(required = false) Long mujerId, Model model, HttpSession session) {
 		mujerId = (Long) (mujerId != null ? mujerId : session.getAttribute("mujerId"));
 		referenceData(mujerId, model);
 		model.addAttribute("citaciones", citacionService.getCitasDisponibles(citacion.getServicioId()));
+		System.out.println("Servicio seleccionado:" + citacion.getServicioId());
+		//model.addAttribute("citacion", citacion);
 		return "newCita";
 	}
 	
 	@RequestMapping(value = "/cita/new/finish", method = RequestMethod.POST)
 	@SuppressWarnings("unchecked")
-	public String submitCitaSelection(@ModelAttribute CitacionView citacion, @RequestParam(required = false) Long mujerId, @RequestParam Integer citasel, Model model, HttpSession session, SessionStatus status) {
+	public String submitCitaSelection(@ModelAttribute("citacion") CitacionView citacion, @RequestParam(required = false) Long mujerId, @RequestParam Integer citasel, Model model, HttpSession session, SessionStatus status) {
 		mujerId = (Long) (mujerId != null ? mujerId : session.getAttribute("mujerId"));
 		List<CitacionView> citaciones = (List<CitacionView>) session.getAttribute("citaciones");
 		if (citaciones != null && citasel != null) {
