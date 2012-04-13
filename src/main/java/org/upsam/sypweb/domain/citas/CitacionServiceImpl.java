@@ -74,7 +74,7 @@ public class CitacionServiceImpl implements CitacionService {
 		citacion.setMujer(mujer);
 		citacionRepository.save(citacion);
 		notificationService.sendAppointmentConfirmation(
-			new CitaDTO(cita.getServicio(), cita.getCita(), cita.getHora(), mujer.getNombre().getNombre(), "rober.atsistemas@gmail.com")
+			new CitaDTO(cita.getServicio(), cita.getCita(), cita.getHora(), mujer.getNombre().getNombre(), mujer.getNombre().getEmail())
 		);
 	}
 
