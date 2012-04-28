@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
 	<version>1</version>
-	<pluginVersion><![CDATA[2.3.2.201003220227-RELEASE]]></pluginVersion>
+	<pluginVersion><![CDATA[2.9.1.201203220057-RELEASE]]></pluginVersion>
 	<configSuffixes>
 		<configSuffix><![CDATA[xml]]></configSuffix>
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
-		<config>src/main/resources/concejalia-data-context.xml</config>
-		<config>target/concejalia/WEB-INF/classes/concejalia-data-context.xml</config>
-		<config>src/main/resources/concejalia-view-context.xml</config>
 		<config>src/test/resources/testContext.xml</config>
+		<config>src/main/resources/app-context/cache/concejalia-cache-context.xml</config>
 	</configs>
 	<configSets>
 	</configSets>

@@ -3,6 +3,7 @@ package org.upsam.sypweb.facade.impl;
 import javax.inject.Inject;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.upsam.sypweb.converter.Converter;
@@ -75,6 +76,7 @@ public class MujerServiceFacadeImpl implements MujerServiceFacade {
 
 	@Override
 	@Transactional(readOnly = true)
+	@Cacheable("mujeres")
 	public MujerDetailedView find(Long mujerId) {
 		Mujer mujer = mujerService.find(mujerId);
 		MujerView mujerView = mujerConverter.convert(mujer);

@@ -8,6 +8,7 @@
 	<import resource="classpath:app-context/data/concejalia-data-production-context.xml" />
 	<import resource="classpath:app-context/data/concejalia-data-common-context.xml" />
 	<import resource="classpath:app-context/mail/concejalia-mail-context.xml" />
+	<import resource="classpath:app-context/cache/concejalia-cache-context.xml" />
 	<import resource="classpath:app-context/view/concejalia-view-context.xml" />
 	
 </beans>
