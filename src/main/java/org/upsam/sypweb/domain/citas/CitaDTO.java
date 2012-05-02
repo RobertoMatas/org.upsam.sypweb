@@ -87,4 +87,13 @@ public class CitaDTO implements Serializable {
 		return email;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "CitaDTO [servicio=" + servicio + ", cita=" + cita + ", hora="
+				+ hora + ", nombre=" + nombre + "]";
+	}
+
 }

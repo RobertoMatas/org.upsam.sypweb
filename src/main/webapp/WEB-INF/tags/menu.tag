@@ -20,7 +20,12 @@
 		</li>
       </ul>
       <ul>
-        <li><a href="<c:url value="/signoff.htm" />">Salir</a>
+        <li>
+			<a href="<c:url value="/cita/history" />">Mis citas concedidas</a>
+		</li>
+      </ul>
+      <ul>
+        <li><a href="<c:url value="/logout" />">Salir</a>
         </li>
       </ul>        
     </div>

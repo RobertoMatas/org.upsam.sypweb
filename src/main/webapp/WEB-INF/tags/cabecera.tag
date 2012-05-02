@@ -1,6 +1,7 @@
 <!-- CABECERA -->
 <%@ tag body-content="empty" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <div align="center">
 <table width="85%" class="cabecera" align="center" cellpadding="0" cellspacing="0">
 	<tr>
@@ -17,7 +18,7 @@
 				  </td>
 				  	<td>
 				  		<label class="label0">
-				  			Roberto Matas
+				  			<sec:authentication property="principal.username" />
 				  		</label>	
 					</td>
 			  	</tr>
@@ -25,7 +26,12 @@
 					<td height="37" colspan="2" align="center">
 				  		<img src="<c:url value="/resources/img/user-group4.gif" />" />
 						<label class="dlabel">
-							Administrativo
+							<sec:authorize access="hasRole('ROLE_ADMINISTRATIVO')">
+								Administrativo
+							</sec:authorize>
+							<sec:authorize access="hasRole('ROLE_ESPECIALISTA')">
+								<c:out value="${sessionScope.user.servicio.descripcion }" />
+							</sec:authorize>
 						</label>
 				  </td>
 			  	</tr>

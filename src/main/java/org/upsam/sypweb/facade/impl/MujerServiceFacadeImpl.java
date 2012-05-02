@@ -3,7 +3,6 @@ package org.upsam.sypweb.facade.impl;
 import javax.inject.Inject;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.upsam.sypweb.converter.Converter;
@@ -11,7 +10,7 @@ import org.upsam.sypweb.domain.aula.AulaAbierta;
 import org.upsam.sypweb.domain.aula.AulaConverter;
 import org.upsam.sypweb.domain.citas.Citacion;
 import org.upsam.sypweb.domain.citas.CitacionConverter;
-import org.upsam.sypweb.domain.citas.CitacionService;
+import org.upsam.sypweb.domain.citas.ejb.CitacionServiceBeanLocal;
 import org.upsam.sypweb.domain.mujer.Mujer;
 import org.upsam.sypweb.domain.mujer.MujerConverter;
 import org.upsam.sypweb.domain.mujer.MujerService;
@@ -33,7 +32,7 @@ public class MujerServiceFacadeImpl implements MujerServiceFacade {
 	/**
 	 * Servicio de gestión de {@link Citacion}
 	 */
-	private CitacionService citacionService;
+	private CitacionServiceBeanLocal citacionService;
 	/**
 	 * Servicio de gestión de {@link Mujer}
 	 */
@@ -62,7 +61,7 @@ public class MujerServiceFacadeImpl implements MujerServiceFacade {
 	 */
 	@Inject
 	public MujerServiceFacadeImpl(ServicioService servicioService,
-			MujerService mujerService, CitacionService citacionService,
+			MujerService mujerService, CitacionServiceBeanLocal citacionService,
 			MujerConverter mujerConverter, CitacionConverter citacionConverter,
 			AulaConverter aulaConverter) {
 		super();
@@ -76,7 +75,7 @@ public class MujerServiceFacadeImpl implements MujerServiceFacade {
 
 	@Override
 	@Transactional(readOnly = true)
-	@Cacheable("mujeres")
+	//@Cacheable("mujeres")
 	public MujerDetailedView find(Long mujerId) {
 		Mujer mujer = mujerService.find(mujerId);
 		MujerView mujerView = mujerConverter.convert(mujer);

@@ -1,4 +1,4 @@
-package org.upsam.sypweb.domain.citas;
+package org.upsam.sypweb.domain.citas.ejb;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -16,6 +16,11 @@ import javax.interceptor.Interceptors;
 import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 import org.springframework.transaction.annotation.Transactional;
 import org.upsam.sypweb.async.NotificationService;
+import org.upsam.sypweb.domain.citas.CitaDTO;
+import org.upsam.sypweb.domain.citas.Citacion;
+import org.upsam.sypweb.domain.citas.CitacionConverter;
+import org.upsam.sypweb.domain.citas.CitacionRepository;
+import org.upsam.sypweb.domain.citas.QCitacion;
 import org.upsam.sypweb.domain.mujer.Mujer;
 import org.upsam.sypweb.domain.mujer.MujerRepository;
 import org.upsam.sypweb.domain.servicio.Horario;
@@ -28,7 +33,7 @@ import com.mysema.query.types.Predicate;
 @Stateless(name = "ejb/CitacionServiceBean")
 @Interceptors(SpringBeanAutowiringInterceptor.class)
 @Transactional(readOnly = true)
-public class CitacionServiceImpl implements CitacionService {
+public class CitacionServiceBean implements CitacionServiceBeanLocal {
 	private final int MAX_CITAS = 20;
 	/**
 	 * Formato de hora usado
@@ -58,13 +63,13 @@ public class CitacionServiceImpl implements CitacionService {
 	/**
 	 * 
 	 */
-	public CitacionServiceImpl() {
+	public CitacionServiceBean() {
 		super();
 	}
 
 	@Override
 	@Transactional
-	public void citar(Long mujerId, CitacionView cita) {
+	public void citar(Long mujerId, CitacionView cita, AppointmentHistoryBeanLocal history) {
 		Citacion citacion = new Citacion();
 		citacion.setAcudio(false);
 		citacion.setCita(cita.getCita());
@@ -73,9 +78,9 @@ public class CitacionServiceImpl implements CitacionService {
 		Mujer mujer = mujerRepository.findOne(mujerId);
 		citacion.setMujer(mujer);
 		citacionRepository.save(citacion);
-		notificationService.sendAppointmentConfirmation(
-			new CitaDTO(cita.getServicio(), cita.getCita(), cita.getHora(), mujer.getNombre().getNombre(), mujer.getNombre().getEmail())
-		);
+		CitaDTO citadto = new CitaDTO(cita.getServicio(), cita.getCita(), cita.getHora(), mujer.getNombre().getNombre(), mujer.getNombre().getEmail());
+		history.add(citadto);
+		notificationService.sendAppointmentConfirmation(citadto);
 	}
 
 	@Override

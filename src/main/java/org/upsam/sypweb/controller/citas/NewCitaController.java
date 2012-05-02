@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.upsam.sypweb.domain.citas.CitacionService;
+import org.upsam.sypweb.domain.citas.ejb.AppointmentHistoryBeanLocal;
+import org.upsam.sypweb.domain.citas.ejb.CitacionServiceBeanLocal;
 import org.upsam.sypweb.domain.mujer.Mujer;
 import org.upsam.sypweb.domain.servicio.Servicio;
 import org.upsam.sypweb.domain.servicio.ServicioService;
@@ -34,13 +35,13 @@ public class NewCitaController {
 	/**
 	 * 
 	 */
-	private CitacionService citacionService;
+	private CitacionServiceBeanLocal citacionService;
 
 	/**
 	 * @param mujerService
 	 */
 	@Inject
-	public NewCitaController(MujerServiceFacade mujerServiceFacade, ServicioService servicioService, CitacionService citacionService) {
+	public NewCitaController(MujerServiceFacade mujerServiceFacade, ServicioService servicioService, CitacionServiceBeanLocal citacionService) {
 		super();
 		this.mujerServiceFacade = mujerServiceFacade;
 		this.servicioService = servicioService;		
@@ -74,9 +75,9 @@ public class NewCitaController {
 		List<CitacionView> citaciones = (List<CitacionView>) session.getAttribute("citaciones");
 		if (citaciones != null && citasel != null) {
 			CitacionView citaSelected = citaciones.get(citasel);
-			citacionService.citar(mujerId, citaSelected);
+			citacionService.citar(mujerId, citaSelected, (AppointmentHistoryBeanLocal) session.getAttribute("history"));
 			status.setComplete();
-			return "redirect:/listarCitas?mujerId=" + mujerId;
+			return "redirect:/cita/list?mujerId=" + mujerId;
 			
 		} else {
 			referenceData(mujerId, model);

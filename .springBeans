@@ -9,6 +9,7 @@
 	<configs>
 		<config>src/test/resources/testContext.xml</config>
 		<config>src/main/resources/app-context/cache/concejalia-cache-context.xml</config>
+		<config>src/main/resources/app-context/security/concejalia-security-context.xml</config>
 	</configs>
 	<configSets>
 	</configSets>

@@ -5,7 +5,7 @@
 <table class="list" width="100%">
 	<tr class="fila1">
 		<td width="5%" height="21" align="center">
-			<a href="<c:url value="/listarCitas"><c:param name="mujerId" value="${mujer.id}"/></c:url>"> <img src="<c:url value="/resources/img/seleccionar.gif" />" border="0" /></a>
+			<a href="<c:url value="/cita/list"><c:param name="mujerId" value="${mujer.id}"/></c:url>"> <img src="<c:url value="/resources/img/seleccionar.gif" />" border="0" /></a>
 		</td>
 		<td width="80%" class="col2"><label class="label0"><c:out value="${mujer.apellido1}" />&nbsp;<c:out value="${mujer.apellido2}" />,&nbsp;<c:out
 			value="${mujer.nombre}" /></label></td>

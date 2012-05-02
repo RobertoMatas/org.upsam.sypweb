@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 import org.upsam.sypweb.domain.mujer.Mujer;
+import org.upsam.sypweb.domain.user.User;
 
 public interface ServicioRepository extends QueryDslPredicateExecutor<Servicio>, JpaRepository<Servicio, Integer>, JpaSpecificationExecutor<Servicio> {
 	
@@ -18,4 +19,6 @@ public interface ServicioRepository extends QueryDslPredicateExecutor<Servicio>,
 			"WHERE citas.acudio = TRUE " +
 			"AND m = :mujer")
 	List<Servicio> getUsedUservicesBy(@Param("mujer") Mujer mujer);
+	
+	Servicio findByResponsable(User responsable);
 }

@@ -4,7 +4,7 @@
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ attribute name="target" required="true" type="java.lang.String" %>
-<c:set var="tabs" value="/listarCitas,/cita/new,addFicha,listarFichas,aulaAbierta" />
+<c:set var="tabs" value="/cita/list,/cita/new,addFicha,listarFichas,aulaAbierta" />
 <c:set var="tabText">Citas,Nueva Cita,Ficha,Histórico Fichas,Aula Abierta</c:set>
 <table cellpadding="0" cellspacing="0" border="0" width="85%" align="center" >
 <tr>
