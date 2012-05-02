@@ -1,12 +1,12 @@
 package org.upsam.sypweb.domain.citas.ejb;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
 
-import org.apache.commons.collections.buffer.CircularFifoBuffer;
+import org.apache.commons.collections15.buffer.CircularFifoBuffer;
 import org.upsam.sypweb.domain.citas.CitaDTO;
 
 @Stateful(name = "ejb/AppointmentHistoryBean")
@@ -19,14 +19,14 @@ public class AppointmentHistoryBean implements AppointmentHistoryBeanLocal {
 	 * Colección circular para ir descartando las citas más antiguas cuando se
 	 * supere el tamaño del histórico
 	 */
-	private CircularFifoBuffer appointmentHistory;
+	private CircularFifoBuffer<CitaDTO> appointmentHistory;
 
 	/**
 	 * 
 	 */
 	public AppointmentHistoryBean() {
 		super();
-		this.appointmentHistory = new CircularFifoBuffer(MAX_HISTORY_SIZE);
+		this.appointmentHistory = new CircularFifoBuffer<CitaDTO>(MAX_HISTORY_SIZE);
 	}
 
 	@Override
@@ -36,12 +36,9 @@ public class AppointmentHistoryBean implements AppointmentHistoryBeanLocal {
 
 	@Override
 	public List<CitaDTO> getAppointments() {
-		Object[] citasArr = appointmentHistory.toArray();
-		List<CitaDTO> citas = new ArrayList<CitaDTO>(citasArr.length);
-		for (int i = 0; i < citasArr.length; i++) {
-			citas.add(i, (CitaDTO) citasArr[i]);
-		}
-		return citas;
+		CitaDTO[] citasArr = new CitaDTO[appointmentHistory.size()];
+		appointmentHistory.toArray(citasArr);
+		return Arrays.asList(citasArr);
 	}
 
 	@Override
