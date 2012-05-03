@@ -20,7 +20,6 @@ import org.upsam.sypweb.facade.MujerServiceFacade;
 import org.upsam.sypweb.view.CitacionView;
 import org.upsam.sypweb.view.MujerDetailedView;
 import org.upsam.sypweb.view.MujerView;
-import org.upsam.sypweb.view.TallerView;
 
 @Transactional(readOnly = true)
 @Service

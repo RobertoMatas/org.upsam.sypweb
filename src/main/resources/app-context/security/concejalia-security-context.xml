@@ -9,9 +9,12 @@
 	<bean id="jndiTemplate" class="org.springframework.jndi.JndiTemplate" />
 
 	<security:http security="none" pattern="/login*" />
+	<security:http security="none" pattern="/AulaAbiertaService*" />
 	<security:http auto-config="true" use-expressions="true">
 		<security:intercept-url pattern="/cita/*" access="isAuthenticated()" />
 		<security:intercept-url pattern="/mujeres/*" access="isAuthenticated()" />
+		<security:intercept-url pattern="/aula**" access="hasRole('ROLE_ADMINISTRATIVO')" />
+		<security:intercept-url pattern="/aula/*" access="hasRole('ROLE_ADMINISTRATIVO')" />
 		<security:form-login login-page="/login" authentication-failure-url="/login?login_error=1" authentication-success-handler-ref="concejaliaAuthenticationSuccess" />
 		<security:logout logout-url="/logout" logout-success-url="/login" />
 	</security:http>

@@ -9,6 +9,7 @@
 	<import resource="classpath:app-context/data/concejalia-data-common-context.xml" />
 	<import resource="classpath:app-context/mail/concejalia-mail-context.xml" />
 	<import resource="classpath:app-context/cache/concejalia-cache-context.xml" />
+	<import resource="classpath:app-context/web-services/concejalia-webservices-context.xml" />
 	<import resource="classpath:app-context/view/concejalia-view-context.xml" />
 	<import resource="classpath:app-context/security/concejalia-security-context.xml"/>
 	

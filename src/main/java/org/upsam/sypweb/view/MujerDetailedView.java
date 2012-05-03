@@ -23,7 +23,7 @@ public class MujerDetailedView extends MujerView {
 	/**
 	 * Talleres a los que ha acudido la mujer
 	 */
-	private List<TallerView> talleres;
+	private List<AulaAbiertaView> talleres;
 
 	/**
 	 * @return the usedServices
@@ -73,7 +73,7 @@ public class MujerDetailedView extends MujerView {
 	/**
 	 * @return the talleres
 	 */
-	public List<TallerView> getTalleres() {
+	public List<AulaAbiertaView> getTalleres() {
 		return talleres;
 	}
 
@@ -81,7 +81,7 @@ public class MujerDetailedView extends MujerView {
 	 * @param talleres
 	 *            the talleres to set
 	 */
-	public void setTalleres(List<TallerView> talleres) {
+	public void setTalleres(List<AulaAbiertaView> talleres) {
 		this.talleres = talleres;
 	}
 
