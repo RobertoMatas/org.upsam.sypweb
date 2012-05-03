@@ -1,5 +1,6 @@
 package org.upsam.sypweb.controller.aula;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
@@ -58,7 +59,7 @@ public class AulaAbiertaController {
 	/**
 	 * @param aulaAbiertaService the aulaAbiertaService to set
 	 */
-	@Inject
+	@Resource(name = "aulaAbiertaWebService")
 	public void setAulaAbiertaService(AulaAbiertaService aulaAbiertaService) {
 		this.aulaAbiertaService = aulaAbiertaService;
 	}

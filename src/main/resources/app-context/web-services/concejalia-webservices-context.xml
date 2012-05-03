@@ -2,19 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-	<!-- 
+
 	<bean id="aulaAbiertaWebService" class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean">
 		<property name="serviceInterface" value="org.upsam.sypweb.domain.aula.AulaAbiertaService" />
-		<property name="wsdlDocumentUrl" value="http://localhost:9090/concejalia/AulaAbiertaService?wsdl" />
-		<property name="namespaceUri" value="http://concejalia/" />
+		<property name="wsdlDocumentUrl" value="${aulaAbiertaWebServiceWsdlUrl}" />
+		<property name="namespaceUri" value="http://aula.domain.sypweb.upsam.org/" />
 		<property name="serviceName" value="AulaAbiertaService" />
 		<property name="portName" value="AulaAbiertaServiceEndpointPort" />
+		<property name="lookupServiceOnStartup" value="false" />
 	</bean>
-	
-	<bean id="aulaAbiertaWebService" class="org.springframework.remoting.jaxws.LocalJaxWsServiceFactoryBean">
-		<property name="wsdlDocumentUrl" value="http://localhost:9090/concejalia/AulaAbiertaService?wsdl" />
-		<property name="namespaceUri" value="http://concejalia/" />
-		<property name="serviceName" value="AulaAbiertaService" />
-	</bean>
- -->
 </beans>

@@ -2,17 +2,19 @@ package org.upsam.sypweb.domain.aula;
 
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import org.upsam.sypweb.view.AulaAbiertaView;
 
 @WebService(serviceName = "AulaAbiertaService")
 public class AulaAbiertaServiceEndpoint extends SpringBeanAutowiringSupport {
-
-	@Inject
+	
+	@Autowired
+	@Qualifier("aulaAbiertaService")
 	private AulaAbiertaService aulaAbiertaService;
 
 	@WebMethod

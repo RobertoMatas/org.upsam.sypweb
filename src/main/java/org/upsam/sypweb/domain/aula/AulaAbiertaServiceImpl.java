@@ -11,7 +11,7 @@ import org.upsam.sypweb.domain.mujer.Mujer;
 import org.upsam.sypweb.domain.mujer.MujerRepository;
 import org.upsam.sypweb.view.AulaAbiertaView;
 
-@Service
+@Service(value = "aulaAbiertaService")
 @Transactional(readOnly = true)
 public class AulaAbiertaServiceImpl implements AulaAbiertaService {
 	/**
