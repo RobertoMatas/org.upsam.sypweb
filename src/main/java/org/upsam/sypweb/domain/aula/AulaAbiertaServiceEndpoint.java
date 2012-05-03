@@ -42,11 +42,4 @@ public class AulaAbiertaServiceEndpoint extends SpringBeanAutowiringSupport {
 		aulaAbiertaService.cancelarInscripcion(aulaId, mujerId);
 	}
 	
-	/*
-	private AulaAbiertaView[] toResult(List<AulaAbiertaView> view) {
-		AulaAbiertaView[] result = new AulaAbiertaView[view.size()];
-		view.toArray(result);
-		return result;
-	}
-	*/
 }
