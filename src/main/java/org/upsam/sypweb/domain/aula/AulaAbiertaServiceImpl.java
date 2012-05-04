@@ -28,12 +28,18 @@ public class AulaAbiertaServiceImpl implements AulaAbiertaService {
 	private AulaConverter aulaConverter;
 
 	/**
-	 * 
+	 * @param aulaAbiertaRepository
+	 * @param mujerRepository
+	 * @param aulaConverter
 	 */
-	public AulaAbiertaServiceImpl() {
+	@Inject
+	public AulaAbiertaServiceImpl(AulaAbiertaRepository aulaAbiertaRepository, MujerRepository mujerRepository, AulaConverter aulaConverter) {
 		super();
+		this.aulaAbiertaRepository = aulaAbiertaRepository;
+		this.mujerRepository = mujerRepository;
+		this.aulaConverter = aulaConverter;
 	}
-	
+
 	@Override
 	@Transactional
 	public void inscribir(Long aulaId, Long mujerId) {
@@ -41,7 +47,7 @@ public class AulaAbiertaServiceImpl implements AulaAbiertaService {
 		AulaAbierta aula = aulaAbiertaRepository.findOne(aulaId);
 		mujer.getTalleres().add(aula);
 	}
-	
+
 	@Override
 	@Transactional
 	public void cancelarInscripcion(Long aulaId, Long mujerId) {
@@ -71,30 +77,5 @@ public class AulaAbiertaServiceImpl implements AulaAbiertaService {
 	private List<AulaAbiertaView> toView(List<AulaAbierta> query) {
 		return aulaConverter.convert(query);
 	}
-	
-	/**
-	 * @param aulaAbiertaRepository
-	 *            the aulaAbiertaRepository to set
-	 */
-	@Inject
-	public void setAulaAbiertaRepository(AulaAbiertaRepository aulaAbiertaRepository) {
-		this.aulaAbiertaRepository = aulaAbiertaRepository;
-	}
 
-	/**
-	 * @param mujerRepository
-	 *            the mujerRepository to set
-	 */
-	@Inject
-	public void setMujerRepository(MujerRepository mujerRepository) {
-		this.mujerRepository = mujerRepository;
-	}
-
-	/**
-	 * @param aulaConverter the aulaConverter to set
-	 */
-	@Inject
-	public void setAulaConverter(AulaConverter aulaConverter) {
-		this.aulaConverter = aulaConverter;
-	}
 }
