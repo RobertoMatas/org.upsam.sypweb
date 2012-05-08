@@ -12,11 +12,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jndi.JndiTemplate;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.upsam.sypweb.domain.servicio.ServicioService;
+import org.upsam.sypweb.domain.user.Role;
 
 @Component
 public class ConcejaliaAuthenticationSuccess implements AuthenticationSuccessHandler {
@@ -35,7 +37,8 @@ public class ConcejaliaAuthenticationSuccess implements AuthenticationSuccessHan
 	/**
 	 * Nombre JNDI del bean de histórico
 	 */
-	private @Value("${appointmentHistoryBean}") String appointmentHistoryJndiName;
+	private @Value("${appointmentHistoryBean}")
+	String appointmentHistoryJndiName;
 
 	/**
 	 * @param servicioService
@@ -49,9 +52,7 @@ public class ConcejaliaAuthenticationSuccess implements AuthenticationSuccessHan
 	}
 
 	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request,
-			HttpServletResponse response, Authentication authentication)
-			throws IOException, ServletException {
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 		HttpSession session = request.getSession(true);
 		session.setAttribute("user", servicioService.findUserByUserName(authentication.getName()));
 		try {
@@ -59,7 +60,19 @@ public class ConcejaliaAuthenticationSuccess implements AuthenticationSuccessHan
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-		redirectStrategy.sendRedirect(request, response, "/mujeres/buscar");
+		if (hasRole(Role.ROLE_ADMINISTRATIVO.toString(), authentication)) {
+			redirectStrategy.sendRedirect(request, response, "/mujeres/buscar");
+		} else if (hasRole(Role.ROLE_ESPECIALISTA.toString(), authentication)) {
+			redirectStrategy.sendRedirect(request, response, "/cita/inicio");
+		}
+	}
+
+	protected boolean hasRole(String role, Authentication authentication) {
+		for (GrantedAuthority auth : authentication.getAuthorities()) {
+			if (role.equals(auth.getAuthority()))
+				return true;
+		}
+		return false;
 	}
 
 }

@@ -25,7 +25,10 @@ import org.upsam.sypweb.domain.mujer.Mujer;
 import org.upsam.sypweb.domain.mujer.MujerRepository;
 import org.upsam.sypweb.domain.servicio.Horario;
 import org.upsam.sypweb.domain.servicio.Servicio;
+import org.upsam.sypweb.domain.servicio.ServicioDTO;
 import org.upsam.sypweb.domain.servicio.ServicioRepository;
+import org.upsam.sypweb.domain.servicio.ServicioService;
+import org.upsam.sypweb.domain.user.UserDTO;
 import org.upsam.sypweb.view.CitacionView;
 
 import com.mysema.query.types.Predicate;
@@ -59,6 +62,10 @@ public class CitacionServiceBean implements CitacionServiceBeanLocal {
 	 * Servicio de notificaciones vía email
 	 */
 	private NotificationService notificationService;
+	/**
+	 * Serivicio de gestión de los servicios de la concejalía
+	 */
+	private ServicioService servicioService;
 
 	/**
 	 * 
@@ -94,6 +101,21 @@ public class CitacionServiceBean implements CitacionServiceBeanLocal {
 	public List<CitacionView> getCitasPendientes(Long mujerId, String userName) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public List<CitacionView> getDailyAppointment(String userName) {
+		UserDTO user = servicioService.findUserByUserName(userName);
+		ServicioDTO servicio = user.getServicio();
+		QCitacion cita = QCitacion.citacion;
+		Date now = new Date();
+		DateFormat df = new SimpleDateFormat("HHmmss");
+			
+		return citacionConverter.convert(
+				citacionRepository.findAll(cita.servicio.id.eq(servicio.getId())
+				.and(cita.cita.eq(now))
+				.and(cita.hora.gt(df.format(now)))
+				.and(cita.acudio.eq(Boolean.FALSE)), cita.cita.asc(), cita.hora.asc()));
 	}
 
 	private Predicate getCitasPendientesPredicate(Mujer mujer) {
@@ -269,5 +291,13 @@ public class CitacionServiceBean implements CitacionServiceBeanLocal {
 	@Inject
 	public void setNotificationService(NotificationService notificationService) {
 		this.notificationService = notificationService;
+	}
+
+	/**
+	 * @param servicioService the servicioService to set
+	 */
+	@Inject
+	public void setServicioService(ServicioService servicioService) {
+		this.servicioService = servicioService;
 	}
 }

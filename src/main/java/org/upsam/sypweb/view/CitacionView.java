@@ -37,6 +37,10 @@ public class CitacionView implements Serializable {
 	 * Indica si se acudio a la cita o no
 	 */
 	private Boolean acudio;
+	/**
+	 * Mujer que tiene la cita
+	 */
+	private MujerView mujer;
 
 	/**
 	 * 
@@ -54,8 +58,7 @@ public class CitacionView implements Serializable {
 	 * @param hora
 	 * @param acudio
 	 */
-	public CitacionView(Long id, Integer servicioId, String servicio,
-			String responsable, Date cita, String hora, Boolean acudio) {
+	public CitacionView(Long id, Integer servicioId, String servicio, String responsable, Date cita, String hora, Boolean acudio) {
 		super();
 		this.setId(id);
 		this.cita = cita;
@@ -169,6 +172,21 @@ public class CitacionView implements Serializable {
 	 */
 	public void setAcudio(Boolean acudio) {
 		this.acudio = acudio;
+	}
+
+	/**
+	 * @return the mujer
+	 */
+	public MujerView getMujer() {
+		return mujer;
+	}
+
+	/**
+	 * @param mujer
+	 *            the mujer to set
+	 */
+	public void setMujer(MujerView mujer) {
+		this.mujer = mujer;
 	}
 
 }
