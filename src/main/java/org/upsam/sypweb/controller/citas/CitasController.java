@@ -28,7 +28,7 @@ public class CitasController extends AbstractController {
 	@Inject
 	public CitasController(MujerServiceFacade mujerServiceFacade, CitacionServiceBeanLocal citacionService) {
 		super(mujerServiceFacade);
-		this.mujerServiceFacade = mujerServiceFacade;
+		this.citacionService = citacionService;
 	}
 
 	@RequestMapping("/cita/list")
