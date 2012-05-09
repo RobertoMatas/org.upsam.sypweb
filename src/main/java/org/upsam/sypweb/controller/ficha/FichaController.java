@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.upsam.sypweb.controller.AbstractController;
 import org.upsam.sypweb.domain.ficha.FichaService;
 import org.upsam.sypweb.domain.mujer.Mujer;
 import org.upsam.sypweb.domain.user.UserDTO;
@@ -21,29 +22,21 @@ import org.upsam.sypweb.view.FichaView;
 @Controller
 @RequestMapping("/ficha")
 @SessionAttributes("ficha")
-public class FichaController {
-	/**
-	 * Servicio que implementa la lógica de negocio relativa a las fichas
-	 */
-	private FichaService fichaService;
+public class FichaController extends AbstractController {
 	/**
 	 * Servicio de fachada para la gestión de {@link Mujer}
 	 */
-	private MujerServiceFacade mujerServiceFacade;
-
-	/**
-	 * @param fichaService
-	 */
+	private FichaService fichaService;
+	
 	@Inject
 	public FichaController(FichaService fichaService, MujerServiceFacade mujerServiceFacade) {
-		super();
+		super(mujerServiceFacade);
 		this.fichaService = fichaService;
-		this.mujerServiceFacade = mujerServiceFacade;
 	}
 	
 	@ModelAttribute("ficha")
 	public FichaView modelAttribute(@RequestParam Long mujerId, HttpSession session) {
-		return fichaService.findFichaAbierta(mujerId, getServicio(session));
+		return fichaService.findFichaAbierta(mujerId, getServicioId(session));
 	}
 
 	@RequestMapping("/open")
@@ -76,13 +69,5 @@ public class FichaController {
 		} 
 		model.addAttribute("ficha", ficha);
 		return "ficha/resumen";
-	}
-
-	private Integer getServicio(HttpSession session) {		
-		return ((UserDTO) session.getAttribute("user")).getServicio().getId();
-	}
-	
-	private void referenceData(Long mujerId, Model model) {
-		model.addAttribute("details", mujerServiceFacade.find(mujerId));
 	}
 }

@@ -1,4 +1,4 @@
-package org.upsam.sypweb.controller;
+package org.upsam.sypweb.controller.mujer;
 
 import javax.inject.Inject;
 

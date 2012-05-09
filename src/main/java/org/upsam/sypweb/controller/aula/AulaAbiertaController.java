@@ -7,18 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.upsam.sypweb.controller.AbstractController;
 import org.upsam.sypweb.domain.aula.AulaAbierta;
 import org.upsam.sypweb.domain.aula.AulaAbiertaService;
-import org.upsam.sypweb.domain.mujer.Mujer;
 import org.upsam.sypweb.facade.MujerServiceFacade;
 
 @Controller
 @RequestMapping("/aula")
-public class AulaAbiertaController {
-	/**
-	 * Servicio de fachada para la gestión de {@link Mujer}
-	 */
-	private MujerServiceFacade mujerServiceFacade;
+public class AulaAbiertaController extends AbstractController {
 	/**
 	 * Servicio de gestión del {@link AulaAbierta}
 	 */
@@ -31,13 +27,12 @@ public class AulaAbiertaController {
 	 */
 	@Inject
 	public AulaAbiertaController(MujerServiceFacade mujerServiceFacade) {
-		super();
-		this.mujerServiceFacade = mujerServiceFacade;
+		super(mujerServiceFacade);
 	}
 
 	@RequestMapping
 	public String aulaAbierta(@RequestParam(required = true) Long mujerId, Model model) {
-		model.addAttribute("details", mujerServiceFacade.find(mujerId));
+		referenceData(mujerId, model);
 		model.addAttribute("inscritos", aulaAbiertaService.findTalleresApuntados(mujerId));
 		model.addAttribute("ofertados", aulaAbiertaService.findTalleresOfertados(mujerId));
 		model.addAttribute("encurso", aulaAbiertaService.findTalleresApuntadosEnCurso(mujerId));

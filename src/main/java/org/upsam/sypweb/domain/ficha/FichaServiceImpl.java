@@ -15,6 +15,7 @@ import org.upsam.sypweb.domain.servicio.ServicioRepository;
 import org.upsam.sypweb.domain.user.User;
 import org.upsam.sypweb.domain.user.UserRepository;
 import org.upsam.sypweb.view.FichaView;
+import org.upsam.sypweb.view.SeguimientoView;
 
 @Service
 @Transactional
@@ -32,6 +33,10 @@ public class FichaServiceImpl implements FichaService {
 	 */
 	private FichaConverter fichaConverter;
 	/**
+	 * Converter de {@link Seguimiento} a {@link SeguimientoView}
+	 */
+	private SeguimientoConveter seguimientoConveter;
+	/**
 	 * Repositorio para {@link Servicio}
 	 */
 	private ServicioRepository servicioRepository;
@@ -43,13 +48,18 @@ public class FichaServiceImpl implements FichaService {
 	 * Repositorio para {@link Mujer}
 	 */
 	private MujerRepository mujerRepository;
+	/**
+	 * Repositorio para {@link Seguimiento}
+	 */
+	private SeguimientoRepository seguimientoRepository;
 
 	/**
 	 * @param citacionRepository
 	 */
 	@Inject
 	public FichaServiceImpl(CitacionRepository citacionRepository, FichaRepository fichaRepository, FichaConverter fichaConverter, ServicioRepository servicioRepository,
-			MujerRepository mujerRepository, UserRepository userRepository) {
+			MujerRepository mujerRepository, UserRepository userRepository, SeguimientoRepository seguimientoRepository,
+			SeguimientoConveter seguimientoConveter) {
 		super();
 		this.citacionRepository = citacionRepository;
 		this.fichaRepository = fichaRepository;
@@ -57,6 +67,8 @@ public class FichaServiceImpl implements FichaService {
 		this.servicioRepository = servicioRepository;
 		this.mujerRepository = mujerRepository;
 		this.userRepository = userRepository;
+		this.seguimientoRepository = seguimientoRepository;
+		this.seguimientoConveter = seguimientoConveter;
 	}
 
 	@Override
@@ -87,7 +99,24 @@ public class FichaServiceImpl implements FichaService {
 		}
 		return fichaConverter.convert(ficha2);
 	}
-
+	
+	@Override
+	public SeguimientoView abrirSeguimiento(Long fichaId) {
+		Ficha ficha = fichaRepository.findOne(fichaId);
+		Seguimiento seg = new Seguimiento();
+		seg.setFecha(new Date());
+		seg.setFicha(ficha);
+		seguimientoRepository.save(seg);
+		return seguimientoConveter.convert(seg);
+	}
+	
+	@Override
+	public void save(SeguimientoView seg) {
+		Seguimiento seguimiento = seguimientoRepository.findOne(seg.getId());
+		seguimiento.setObservaciones(seg.getObservaciones());
+		seguimientoRepository.save(seguimiento);
+	}
+	
 	private Ficha createFicha(Long mujerId, Integer servicioId) {
 		Mujer mujer = mujerRepository.findOne(mujerId);
 		Servicio servicio = servicioRepository.findOne(servicioId);
@@ -99,5 +128,4 @@ public class FichaServiceImpl implements FichaService {
 		fichaRepository.save(ficha);
 		return ficha;
 	}
-
 }

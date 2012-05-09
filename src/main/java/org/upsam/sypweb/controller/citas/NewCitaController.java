@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.upsam.sypweb.controller.AbstractController;
 import org.upsam.sypweb.domain.citas.ejb.AppointmentHistoryBeanLocal;
 import org.upsam.sypweb.domain.citas.ejb.CitacionServiceBeanLocal;
-import org.upsam.sypweb.domain.mujer.Mujer;
 import org.upsam.sypweb.domain.servicio.Servicio;
 import org.upsam.sypweb.domain.servicio.ServicioService;
 import org.upsam.sypweb.facade.MujerServiceFacade;
@@ -23,11 +23,7 @@ import org.upsam.sypweb.view.CitacionView;
 
 @Controller
 @SessionAttributes({"citacion", "citaciones"})
-public class NewCitaController {
-	/**
-	 * Servicio de fachada para la gestión de {@link Mujer}
-	 */
-	private MujerServiceFacade mujerServiceFacade;
+public class NewCitaController extends AbstractController {
 	/**
 	 * servicio de gestión de la entidad {@link Servicio}
 	 */
@@ -42,8 +38,7 @@ public class NewCitaController {
 	 */
 	@Inject
 	public NewCitaController(MujerServiceFacade mujerServiceFacade, ServicioService servicioService, CitacionServiceBeanLocal citacionService) {
-		super();
-		this.mujerServiceFacade = mujerServiceFacade;
+		super(mujerServiceFacade);
 		this.servicioService = servicioService;		
 		this.citacionService = citacionService;
 	}
@@ -86,7 +81,8 @@ public class NewCitaController {
 		return "newCita";
 	}
 
-	private void referenceData(Long mujerId, Model model) {
+	@Override
+	protected void referenceData(Long mujerId, Model model) {
 		model.addAttribute("details", mujerServiceFacade.find(mujerId));
 		model.addAttribute("listServicios", servicioService.getServicesBy(null));
 	}

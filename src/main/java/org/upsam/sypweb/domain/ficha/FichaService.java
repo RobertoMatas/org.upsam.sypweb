@@ -1,6 +1,7 @@
 package org.upsam.sypweb.domain.ficha;
 
 import org.upsam.sypweb.view.FichaView;
+import org.upsam.sypweb.view.SeguimientoView;
 
 public interface FichaService {
 
@@ -9,5 +10,9 @@ public interface FichaService {
 	FichaView findFichaAbierta(Long mujerId, Integer servicioId);
 
 	void save(FichaView ficha);
+
+	SeguimientoView abrirSeguimiento(Long fichaId);
+
+	void save(SeguimientoView seg);
 
 }

@@ -2,6 +2,7 @@ package org.upsam.sypweb.view;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class FichaView implements Serializable {
 
@@ -33,6 +34,10 @@ public class FichaView implements Serializable {
 	 * 
 	 */
 	private ServicioView servicio;
+	/**
+	 * 
+	 */
+	private List<SeguimientoView> seguimientos;
 
 	/**
 	 * @param id
@@ -91,31 +96,50 @@ public class FichaView implements Serializable {
 	}
 
 	/**
-	 * @param cierre the cierre to set
+	 * @param cierre
+	 *            the cierre to set
 	 */
 	public void setCierre(Date cierre) {
 		this.cierre = cierre;
 	}
 
 	/**
-	 * @param descripcion the descripcion to set
+	 * @param descripcion
+	 *            the descripcion to set
 	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
 	/**
-	 * @param mujer the mujer to set
+	 * @param mujer
+	 *            the mujer to set
 	 */
 	public void setMujer(MujerView mujer) {
 		this.mujer = mujer;
 	}
 
 	/**
-	 * @param servicio the servicio to set
+	 * @param servicio
+	 *            the servicio to set
 	 */
 	public void setServicio(ServicioView servicio) {
 		this.servicio = servicio;
+	}
+
+	/**
+	 * @return the seguimientos
+	 */
+	public List<SeguimientoView> getSeguimientos() {
+		return seguimientos;
+	}
+
+	/**
+	 * @param seguimientos
+	 *            the seguimientos to set
+	 */
+	public void setSeguimientos(List<SeguimientoView> seguimientos) {
+		this.seguimientos = seguimientos;
 	}
 
 }

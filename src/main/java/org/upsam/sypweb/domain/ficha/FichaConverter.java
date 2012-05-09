@@ -11,6 +11,7 @@ import org.upsam.sypweb.domain.servicio.Servicio;
 import org.upsam.sypweb.domain.servicio.ServicioConverter;
 import org.upsam.sypweb.view.FichaView;
 import org.upsam.sypweb.view.MujerView;
+import org.upsam.sypweb.view.SeguimientoView;
 import org.upsam.sypweb.view.ServicioView;
 
 @Component
@@ -23,16 +24,21 @@ public class FichaConverter extends AbstractConvert<Ficha, FichaView> {
 	 * {@link Converter} de {@link Servicio} a {@link ServicioView}
 	 */
 	private ServicioConverter servicioConverter;
+	/**
+	 * {@link Converter} de {@link Seguimiento} a {@link SeguimientoView}
+	 */
+	private SeguimientoConveter seguimientoConveter;
 
 	/**
 	 * @param mujerConverter
 	 * @param servicioConverter
 	 */
 	@Inject
-	public FichaConverter(MujerConverter mujerConverter, ServicioConverter servicioConverter) {
+	public FichaConverter(MujerConverter mujerConverter, ServicioConverter servicioConverter, SeguimientoConveter seguimientoConveter) {
 		super();
 		this.mujerConverter = mujerConverter;
 		this.servicioConverter = servicioConverter;
+		this.seguimientoConveter = seguimientoConveter;
 	}
 
 	@Override
@@ -42,6 +48,7 @@ public class FichaConverter extends AbstractConvert<Ficha, FichaView> {
 			view = new FichaView(source.getId(), source.getApertura(), mujerConverter.convert(source.getMujer()), servicioConverter.convert(source.getServicio()));
 			view.setCierre(source.getCierre());
 			view.setDescripcion(source.getDescripcion());
+			view.setSeguimientos(seguimientoConveter.convert(source.getSeguimientos()));
 		}
 		return view;
 	}

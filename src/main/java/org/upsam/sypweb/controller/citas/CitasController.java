@@ -7,34 +7,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.upsam.sypweb.controller.AbstractController;
 import org.upsam.sypweb.domain.citas.ejb.AppointmentHistoryBeanLocal;
 import org.upsam.sypweb.domain.citas.ejb.CitacionServiceBeanLocal;
-import org.upsam.sypweb.domain.mujer.Mujer;
 import org.upsam.sypweb.domain.user.UserDTO;
 import org.upsam.sypweb.facade.MujerServiceFacade;
 
 @Controller
-public class CitasController {
+public class CitasController extends AbstractController {
 	/**
-	 * Servicio de fachada para la gestión de {@link Mujer}
+	 * 
 	 */
-	private MujerServiceFacade mujerServiceFacade;
-	
 	private CitacionServiceBeanLocal citacionService;
 
 	/**
-	 * @param mujerService
+	 * 
+	 * @param mujerServiceFacade
+	 * @param citacionService
 	 */
 	@Inject
 	public CitasController(MujerServiceFacade mujerServiceFacade, CitacionServiceBeanLocal citacionService) {
-		super();
+		super(mujerServiceFacade);
 		this.mujerServiceFacade = mujerServiceFacade;
-		this.citacionService = citacionService;
 	}
 
 	@RequestMapping("/cita/list")
 	public String listarCitas(@RequestParam(required = true) Long mujerId, Model model) {
-		model.addAttribute("details", mujerServiceFacade.find(mujerId));
+		referenceData(mujerId, model);
 		return "listarCitas";
 	}
 	

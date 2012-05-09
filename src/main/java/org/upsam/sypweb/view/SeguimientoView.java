@@ -10,6 +10,10 @@ public class SeguimientoView implements Serializable {
 	 */
 	private static final long serialVersionUID = 1680958074002528572L;
 	/**
+	 * ID de seguimiento
+	 */
+	private Long id;
+	/**
 	 * Fecha de seguimiento
 	 */
 	private Date fecha;
@@ -22,10 +26,18 @@ public class SeguimientoView implements Serializable {
 	 * @param fecha
 	 * @param observaciones
 	 */
-	public SeguimientoView(Date fecha, String observaciones) {
+	public SeguimientoView(Long id, Date fecha, String observaciones) {
 		super();
+		this.id = id;
 		this.fecha = fecha;
 		this.observaciones = observaciones;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
 	}
 
 	/**
