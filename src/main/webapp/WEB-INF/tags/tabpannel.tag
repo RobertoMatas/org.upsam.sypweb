@@ -3,9 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ attribute name="target" required="true" type="java.lang.String" %>
 <%@ attribute name="subtarget" required="false" type="java.lang.String" %>
-<c:set var="tabs" value="/cita/list,/cita/new,/ficha/resumen,/ficha/historico,/aula" />
+<c:set var="tabs" value="/cita/list,/cita/new,/ficha/resumen,/ficha/historico,/aula/resumen" />
 <c:set var="tabText">Citas,Nueva Cita,Ficha,Histórico Fichas,Aula Abierta</c:set>
 <table cellpadding="0" cellspacing="0" border="0" width="85%" align="center" >
 <tr>
@@ -23,9 +24,38 @@
 						</li>
 					</c:when>
 					<c:otherwise>
-						<li id="nav-off">
-							<a href="${tabUrl}"><c:out value="${fn:split(tabText, ',')[status.index]}" /></a>
-						</li>	
+						<c:choose>
+							<c:when test="${aTab eq '/aula' }">
+								<sec:authorize access="hasRole('ROLE_ESPECIALISTA')">
+									<li id="nav-no">
+										<a><c:out value="${fn:split(tabText, ',')[status.index]}" /></a>
+									</li>								
+								</sec:authorize>
+								<sec:authorize access="hasRole('ROLE_ADMINISTRATIVO')">
+									<li id="nav-off">
+										<a href="${tabUrl}"><c:out value="${fn:split(tabText, ',')[status.index]}" /></a>
+									</li>								
+								</sec:authorize>
+							</c:when>
+							<c:when test="${aTab eq '/ficha/historico' or aTab eq '/ficha/resumen'}">
+								<sec:authorize access="hasRole('ROLE_ADMINISTRATIVO')">
+									<li id="nav-no">
+										<a><c:out value="${fn:split(tabText, ',')[status.index]}" /></a>
+									</li>								
+								</sec:authorize>
+								<sec:authorize access="hasRole('ROLE_ESPECIALISTA')">
+									<li id="nav-off">
+										<a href="${tabUrl}"><c:out value="${fn:split(tabText, ',')[status.index]}" /></a>
+									</li>								
+								</sec:authorize>
+							</c:when>
+							<c:otherwise>
+								<li id="nav-off">
+									<a href="${tabUrl}"><c:out value="${fn:split(tabText, ',')[status.index]}" /></a>
+								</li>	
+							</c:otherwise>
+						</c:choose>
+						
 					</c:otherwise>
 				</c:choose>
 			</c:forTokens>
@@ -37,6 +67,7 @@
 </table>
 
 <table id="boxcaja" class="box2" width="85%" align="center" cellpadding="2" cellspacing="2">
+<sec:authorize access="hasRole('ROLE_ESPECIALISTA')">
 <c:if test="${subtarget != null}">
 	
 	<tr class="submenu" valign="bottom">
@@ -87,6 +118,7 @@
 	</tr>
 	<tr><td><hr /></td></tr>
 </c:if>
+</sec:authorize>
 <tr><td width="100%">
 
 <jsp:doBody />

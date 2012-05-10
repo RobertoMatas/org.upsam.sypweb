@@ -18,7 +18,7 @@
 <my:detalleMujer mujer="${details}"/>
 <br />
 
-<my:tabpannel target="/aula">
+<my:tabpannel target="/aula/resumen">
 <br />
 <!-- Tabla a los que esta apuntado pero aún no han comenzado -->
 <div align="left">
