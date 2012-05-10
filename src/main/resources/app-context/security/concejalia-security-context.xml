@@ -14,7 +14,6 @@
 		<security:intercept-url pattern="/*" access="isAuthenticated()" />
 		<security:intercept-url pattern="/cita/*" access="isAuthenticated()" />
 		<security:intercept-url pattern="/mujeres/*" access="isAuthenticated()" />
-		<security:intercept-url pattern="/aula**" access="hasRole('ROLE_ADMINISTRATIVO')" />
 		<security:intercept-url pattern="/aula/*" access="hasRole('ROLE_ADMINISTRATIVO')" />
 		<security:intercept-url pattern="/ficha/*" access="hasRole('ROLE_ESPECIALISTA')" />
 		<security:form-login login-page="/login" authentication-failure-url="/login?login_error=1" authentication-success-handler-ref="concejaliaAuthenticationSuccess" />
