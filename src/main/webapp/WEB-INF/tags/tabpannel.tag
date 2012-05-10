@@ -25,7 +25,7 @@
 					</c:when>
 					<c:otherwise>
 						<c:choose>
-							<c:when test="${aTab eq '/aula' }">
+							<c:when test="${aTab eq '/aula/resumen' }">
 								<sec:authorize access="hasRole('ROLE_ESPECIALISTA')">
 									<li id="nav-no">
 										<a><c:out value="${fn:split(tabText, ',')[status.index]}" /></a>
