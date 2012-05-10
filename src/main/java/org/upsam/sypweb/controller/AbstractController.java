@@ -20,13 +20,12 @@ public class AbstractController {
 		super();
 		this.mujerServiceFacade = mujerServiceFacade;
 	}
-	
+
 	protected void referenceData(Long mujerId, Model model) {
 		model.addAttribute("details", mujerServiceFacade.find(mujerId));
 	}
-	
-	protected Integer getServicioId(HttpSession session) {		
+
+	protected Integer getServicioId(HttpSession session) {
 		return ((UserDTO) session.getAttribute("user")).getServicio().getId();
 	}
-
 }

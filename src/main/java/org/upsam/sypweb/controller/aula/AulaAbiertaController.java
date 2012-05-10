@@ -30,7 +30,7 @@ public class AulaAbiertaController extends AbstractController {
 		super(mujerServiceFacade);
 	}
 
-	@RequestMapping
+	@RequestMapping("/resumen")
 	public String aulaAbierta(@RequestParam(required = true) Long mujerId, Model model) {
 		referenceData(mujerId, model);
 		model.addAttribute("inscritos", aulaAbiertaService.findTalleresApuntados(mujerId));
@@ -58,5 +58,4 @@ public class AulaAbiertaController extends AbstractController {
 	public void setAulaAbiertaService(AulaAbiertaService aulaAbiertaService) {
 		this.aulaAbiertaService = aulaAbiertaService;
 	}
-	
 }
