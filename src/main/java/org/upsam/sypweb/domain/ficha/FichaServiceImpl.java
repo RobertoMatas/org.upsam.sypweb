@@ -1,11 +1,14 @@
 package org.upsam.sypweb.domain.ficha;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.Date;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.upsam.sypweb.controller.ficha.DocumentoForm;
 import org.upsam.sypweb.domain.citas.Citacion;
 import org.upsam.sypweb.domain.citas.CitacionRepository;
 import org.upsam.sypweb.domain.mujer.Mujer;
@@ -14,6 +17,7 @@ import org.upsam.sypweb.domain.servicio.Servicio;
 import org.upsam.sypweb.domain.servicio.ServicioRepository;
 import org.upsam.sypweb.domain.user.User;
 import org.upsam.sypweb.domain.user.UserRepository;
+import org.upsam.sypweb.view.ByteDocumentView;
 import org.upsam.sypweb.view.FichaView;
 import org.upsam.sypweb.view.SeguimientoView;
 
@@ -52,14 +56,18 @@ public class FichaServiceImpl implements FichaService {
 	 * Repositorio para {@link Seguimiento}
 	 */
 	private SeguimientoRepository seguimientoRepository;
+	/**
+	 * Repositorio de {@link DocumentoAdjunto}
+	 */
+	private DocumentoRepository documentoRepository;
 
 	/**
 	 * @param citacionRepository
 	 */
 	@Inject
 	public FichaServiceImpl(CitacionRepository citacionRepository, FichaRepository fichaRepository, FichaConverter fichaConverter, ServicioRepository servicioRepository,
-			MujerRepository mujerRepository, UserRepository userRepository, SeguimientoRepository seguimientoRepository,
-			SeguimientoConveter seguimientoConveter) {
+			MujerRepository mujerRepository, UserRepository userRepository, SeguimientoRepository seguimientoRepository, SeguimientoConveter seguimientoConveter,
+			DocumentoRepository documentoRepository) {
 		super();
 		this.citacionRepository = citacionRepository;
 		this.fichaRepository = fichaRepository;
@@ -69,6 +77,7 @@ public class FichaServiceImpl implements FichaService {
 		this.userRepository = userRepository;
 		this.seguimientoRepository = seguimientoRepository;
 		this.seguimientoConveter = seguimientoConveter;
+		this.documentoRepository = documentoRepository;
 	}
 
 	@Override
@@ -99,7 +108,7 @@ public class FichaServiceImpl implements FichaService {
 		}
 		return fichaConverter.convert(ficha2);
 	}
-	
+
 	@Override
 	public SeguimientoView abrirSeguimiento(Long fichaId) {
 		Ficha ficha = fichaRepository.findOne(fichaId);
@@ -109,14 +118,40 @@ public class FichaServiceImpl implements FichaService {
 		seguimientoRepository.save(seg);
 		return seguimientoConveter.convert(seg);
 	}
-	
+
 	@Override
 	public void save(SeguimientoView seg) {
 		Seguimiento seguimiento = seguimientoRepository.findOne(seg.getId());
 		seguimiento.setObservaciones(seg.getObservaciones());
 		seguimientoRepository.save(seguimiento);
 	}
-	
+
+	@Override
+	public boolean save(DocumentoForm doc) throws IOException {
+		byte[] bytes = null;
+		boolean insert = false;
+		if (doc != null && doc.getFile() != null && !doc.getFile().isEmpty()) {
+			bytes = doc.getFile().getBytes();
+			DocumentoAdjunto docAdj = new DocumentoAdjunto();
+			docAdj.setDescripcion(doc.getDescripcion());
+			docAdj.setDocumento(bytes);
+			docAdj.setFicha(fichaRepository.findOne(doc.getFichaId()));
+			docAdj.setTipo(doc.getFile().getContentType());
+			documentoRepository.save(docAdj);
+			insert = true;
+
+		}
+		return insert;
+	}
+
+	@Override
+	public ByteDocumentView openDocument(Long docId) {
+		DocumentoAdjunto docAdj = documentoRepository.findOne(docId);
+		ByteDocumentView dview = new ByteDocumentView(docAdj.getId(), docAdj.getTipo(), docAdj.getDescripcion());
+		dview.setDocBytes(new ByteArrayInputStream(docAdj.getDocumento()));
+		return dview;
+	}
+
 	private Ficha createFicha(Long mujerId, Integer servicioId) {
 		Mujer mujer = mujerRepository.findOne(mujerId);
 		Servicio servicio = servicioRepository.findOne(servicioId);
@@ -128,4 +163,5 @@ public class FichaServiceImpl implements FichaService {
 		fichaRepository.save(ficha);
 		return ficha;
 	}
+
 }

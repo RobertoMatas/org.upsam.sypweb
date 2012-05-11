@@ -38,6 +38,10 @@ public class FichaView implements Serializable {
 	 * 
 	 */
 	private List<SeguimientoView> seguimientos;
+	/**
+	 * 
+	 */
+	private List<DocumentoView> adjuntos;
 
 	/**
 	 * @param id
@@ -140,6 +144,21 @@ public class FichaView implements Serializable {
 	 */
 	public void setSeguimientos(List<SeguimientoView> seguimientos) {
 		this.seguimientos = seguimientos;
+	}
+
+	/**
+	 * @return the adjuntos
+	 */
+	public List<DocumentoView> getAdjuntos() {
+		return adjuntos;
+	}
+
+	/**
+	 * @param adjuntos
+	 *            the adjuntos to set
+	 */
+	public void setAdjuntos(List<DocumentoView> adjuntos) {
+		this.adjuntos = adjuntos;
 	}
 
 }

@@ -58,10 +58,7 @@
 <!-- Listado de seguimientos adjuntos a la ficha -->
 <my:seguimientos seguimientos="${ficha.seguimientos }"/>
 <br />
-<!-- Listado de documentos adjuntos a la ficha -->
-<table border="1px" cellpadding="0" cellspacing="0" class="box3" align="center" width="85%">
-	<!-- bloque seguimientos TODO -->
-</table>
+<my:adjuntos adjuntos="${ficha.adjuntos }"/>
 </my:tabpannel>
 </body>
 </html>

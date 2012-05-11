@@ -22,5 +22,12 @@
 	<mvc:resources location="/resources/" mapping="/resources/**" />
 	
 	<mvc:view-controller path="/login" view-name="login"/>
+	
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1000000" />
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="resolveLazily" value="true" />
+	</bean>
 
 </beans>

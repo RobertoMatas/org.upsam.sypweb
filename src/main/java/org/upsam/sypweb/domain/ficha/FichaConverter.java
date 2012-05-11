@@ -9,6 +9,7 @@ import org.upsam.sypweb.domain.mujer.Mujer;
 import org.upsam.sypweb.domain.mujer.MujerConverter;
 import org.upsam.sypweb.domain.servicio.Servicio;
 import org.upsam.sypweb.domain.servicio.ServicioConverter;
+import org.upsam.sypweb.view.DocumentoView;
 import org.upsam.sypweb.view.FichaView;
 import org.upsam.sypweb.view.MujerView;
 import org.upsam.sypweb.view.SeguimientoView;
@@ -28,17 +29,22 @@ public class FichaConverter extends AbstractConvert<Ficha, FichaView> {
 	 * {@link Converter} de {@link Seguimiento} a {@link SeguimientoView}
 	 */
 	private SeguimientoConveter seguimientoConveter;
+	/**
+	 * {@link Converter} de {@link DocumentoAdjunto} a {@link DocumentoView}
+	 */
+	private DocumentoConveter documentoConveter;
 
 	/**
 	 * @param mujerConverter
 	 * @param servicioConverter
 	 */
 	@Inject
-	public FichaConverter(MujerConverter mujerConverter, ServicioConverter servicioConverter, SeguimientoConveter seguimientoConveter) {
+	public FichaConverter(MujerConverter mujerConverter, ServicioConverter servicioConverter, SeguimientoConveter seguimientoConveter, DocumentoConveter documentoConveter) {
 		super();
 		this.mujerConverter = mujerConverter;
 		this.servicioConverter = servicioConverter;
 		this.seguimientoConveter = seguimientoConveter;
+		this.documentoConveter = documentoConveter;
 	}
 
 	@Override
@@ -49,6 +55,7 @@ public class FichaConverter extends AbstractConvert<Ficha, FichaView> {
 			view.setCierre(source.getCierre());
 			view.setDescripcion(source.getDescripcion());
 			view.setSeguimientos(seguimientoConveter.convert(source.getSeguimientos()));
+			view.setAdjuntos(documentoConveter.convert(source.getAdjuntos()));
 		}
 		return view;
 	}
