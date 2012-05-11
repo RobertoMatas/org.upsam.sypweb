@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.fileupload.FileUploadBase.SizeLimitExceededException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -68,7 +69,7 @@ public class DocumentoAdjuntoController extends AbstractController {
 		return showForm(mujerId, model);
 	}
 	
-	@ExceptionHandler( { IOException.class, MaxUploadSizeExceededException.class } )
+	@ExceptionHandler( { IOException.class, MaxUploadSizeExceededException.class, SizeLimitExceededException.class } )
 	public ModelAndView handleUploadException(Exception ex, HttpServletRequest request, HttpSession session) {
 		DocumentoForm model = (DocumentoForm) WebUtils.getOrCreateSessionAttribute(session, "doc", DocumentoForm.class);
 		request.setAttribute("error", ex.getLocalizedMessage());
