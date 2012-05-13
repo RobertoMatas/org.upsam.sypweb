@@ -91,6 +91,12 @@ public class CitacionServiceBean implements CitacionServiceBeanLocal {
 	}
 
 	@Override
+	@Transactional
+	public void cancel(Long citaId) {
+		citacionRepository.delete(citacionRepository.findOne(citaId));		
+	}
+
+	@Override
 	public List<CitacionView> getCitasPendientes(Long mujerId) {
 		Iterable<Citacion> citasPendientes = citacionRepository
 				.findAll(getCitasPendientesPredicate(mujerRepository.findOne(mujerId)));
@@ -300,4 +306,5 @@ public class CitacionServiceBean implements CitacionServiceBeanLocal {
 	public void setServicioService(ServicioService servicioService) {
 		this.servicioService = servicioService;
 	}
+
 }

@@ -37,8 +37,9 @@
 	<c:forEach var="cita" items="${details.citasPendientes}">
 		<tr>
 			<td width="5%" height="21" align="center">
-				<a class="dhref" href="<c:url value="/removeCita.htm">
-					<c:param name="citaId" value="${cita.id}"/></c:url>">
+				<a class="dhref" href="<c:url value="/cita/cancel">
+					<c:param name="citaId" value="${cita.id}"/>
+					<c:param name="mujerId" value="${details.id}"/></c:url>">
 					<img src="<c:url value="/resources/img/eliminar.gif" />" alt="Eliminar" align="middle" border="0" />
 				</a>
 			</td>

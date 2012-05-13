@@ -18,4 +18,6 @@ public interface CitacionServiceBeanLocal {
 	void citar(Long mujerId, CitacionView cita, AppointmentHistoryBeanLocal history);
 
 	List<CitacionView> getDailyAppointment(String userName);
+
+	void cancel(Long citaId);
 }

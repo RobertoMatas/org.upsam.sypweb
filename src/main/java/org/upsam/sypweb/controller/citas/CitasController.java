@@ -32,7 +32,7 @@ public class CitasController extends AbstractController {
 	}
 
 	@RequestMapping("/cita/list")
-	public String listarCitas(@RequestParam(required = true) Long mujerId, Model model) {
+	public String listarCitas(@RequestParam Long mujerId, Model model) {
 		referenceData(mujerId, model);
 		return "listarCitas";
 	}
@@ -48,5 +48,11 @@ public class CitasController extends AbstractController {
 	public String inicio(Model model, HttpSession session) {
 		model.addAttribute("citasParaHoy", citacionService.getDailyAppointment(((UserDTO) session.getAttribute("user")).getUserName()));
 		return "inicio";
+	}
+	
+	@RequestMapping("/cita/cancel")
+	public String cancelar(@RequestParam Long mujerId, @RequestParam Long citaId, Model model) {
+		citacionService.cancel(citaId);
+		return listarCitas(mujerId, model);
 	}
 }
