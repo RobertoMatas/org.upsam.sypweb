@@ -11,8 +11,6 @@ public interface CitacionServiceBeanLocal {
 
 	List<CitacionView> getCitasPendientes(Long mujerId);
 	
-	List<CitacionView> getCitasPendientes(Long mujerId, String userName);
-	
 	List<CitacionView> getCitasDisponibles(Integer servicioId);
 	
 	void citar(Long mujerId, CitacionView cita, AppointmentHistoryBeanLocal history);

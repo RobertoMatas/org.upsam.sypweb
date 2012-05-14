@@ -102,12 +102,6 @@ public class CitacionServiceBean implements CitacionServiceBeanLocal {
 				.findAll(getCitasPendientesPredicate(mujerRepository.findOne(mujerId)));
 		return citacionConverter.convert(citasPendientes);
 	}
-
-	@Override
-	public List<CitacionView> getCitasPendientes(Long mujerId, String userName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	@Override
 	public List<CitacionView> getDailyAppointment(String userName) {
