@@ -15,7 +15,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.upsam.sypweb.controller.AbstractController;
 import org.upsam.sypweb.domain.ficha.FichaService;
 import org.upsam.sypweb.domain.mujer.Mujer;
-import org.upsam.sypweb.domain.user.UserDTO;
 import org.upsam.sypweb.facade.MujerServiceFacade;
 import org.upsam.sypweb.view.FichaView;
 
@@ -41,7 +40,7 @@ public class FichaController extends AbstractController {
 
 	@RequestMapping("/open")
 	public String abrirFicha(@RequestParam Long citaId, @RequestParam Long mujerId, HttpSession session, Model model) {		
-		FichaView ficha = fichaService.abrirFicha(citaId, mujerId, ((UserDTO) session.getAttribute("user")).getUserName());
+		FichaView ficha = fichaService.abrirFicha(citaId, mujerId, getUserName(session));
 		if (StringUtils.hasText(ficha.getDescripcion())) {
 			return resumenFicha(ficha, mujerId, session, model);
 		}
@@ -69,5 +68,19 @@ public class FichaController extends AbstractController {
 		} 
 		model.addAttribute("ficha", ficha);
 		return "ficha/resumen";
+	}
+	
+	@RequestMapping(value = "/close", method = RequestMethod.GET)
+	public String close(@RequestParam Long fichaId, @RequestParam Long mujerId, HttpSession session, Model model, SessionStatus status) {
+		fichaService.close(fichaId);
+		status.setComplete();
+		return history(mujerId, session, model);
+	}
+	
+	@RequestMapping(value = "/historico", method = RequestMethod.GET)
+	public String history(@RequestParam Long mujerId, HttpSession session, Model model) {
+		referenceData(mujerId, model);
+		model.addAttribute("history", fichaService.history(mujerId));
+		return "ficha/history";
 	}
 }

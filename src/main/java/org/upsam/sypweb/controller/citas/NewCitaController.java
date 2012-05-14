@@ -51,14 +51,14 @@ public class NewCitaController extends AbstractController {
 	@RequestMapping(value = "/cita/new", method = RequestMethod.GET)
 	public String newCitaForm(@RequestParam(required = true) Long mujerId, Model model, HttpSession session) {
 		session.setAttribute("mujerId", mujerId);
-		referenceData(mujerId, model);
+		referenceData(mujerId, model, session);
 		return "newCita";
 	}
 	
 	@RequestMapping(value = "/cita/new", method = RequestMethod.POST)
 	public String submitServiceSelection(@ModelAttribute("citacion") CitacionView citacion, @RequestParam(required = false) Long mujerId, Model model, HttpSession session) {
 		mujerId = (Long) (mujerId != null ? mujerId : session.getAttribute("mujerId"));
-		referenceData(mujerId, model);
+		referenceData(mujerId, model, session);
 		model.addAttribute("citaciones", citacionService.getCitasDisponibles(citacion.getServicioId()));
 		return "newCita";
 	}
@@ -75,15 +75,14 @@ public class NewCitaController extends AbstractController {
 			return "redirect:/cita/list?mujerId=" + mujerId;
 			
 		} else {
-			referenceData(mujerId, model);
+			referenceData(mujerId, model, session);
 			model.addAttribute("citaciones", citacionService.getCitasDisponibles(citacion.getServicioId()));
 		}
 		return "newCita";
 	}
 
-	@Override
-	protected void referenceData(Long mujerId, Model model) {
+	private void referenceData(Long mujerId, Model model, HttpSession session) {
 		model.addAttribute("details", mujerServiceFacade.find(mujerId));
-		model.addAttribute("listServicios", servicioService.getServicesBy(null));
+		model.addAttribute("listServicios", servicioService.getServicesBy(getUserName(session)));
 	}
 }

@@ -28,4 +28,13 @@ public class AbstractController {
 	protected Integer getServicioId(HttpSession session) {
 		return ((UserDTO) session.getAttribute("user")).getServicio().getId();
 	}
+
+	protected String getUserName(HttpSession session) {
+		UserDTO user = (UserDTO) session.getAttribute("user");
+		return user != null ? user.getUserName() : null;
+	}
+	
+	protected UserDTO getUser(HttpSession session) {
+		return (UserDTO) session.getAttribute("user");
+	}
 }

@@ -3,6 +3,7 @@ package org.upsam.sypweb.domain.ficha;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -162,6 +163,23 @@ public class FichaServiceImpl implements FichaService {
 		ficha.setServicio(servicio);
 		fichaRepository.save(ficha);
 		return ficha;
+	}
+
+	@Override
+	public void close(Long fichaId) {
+		Ficha ficha = fichaRepository.findOne(fichaId);
+		ficha.setCerrada(Boolean.TRUE);
+		ficha.setCierre(new Date());
+		fichaRepository.save(ficha);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<FichaView> history(Long mujerId) {
+		QFicha ficha = QFicha.ficha;
+		return fichaConverter.convert(fichaRepository.findAll(
+				ficha.mujer.id.eq(mujerId)
+				.and(ficha.cerrada.eq(Boolean.TRUE)), ficha.cerrada.desc()));
 	}
 
 }

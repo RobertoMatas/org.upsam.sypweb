@@ -1,6 +1,7 @@
 package org.upsam.sypweb.domain.ficha;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.upsam.sypweb.controller.ficha.DocumentoForm;
 import org.upsam.sypweb.view.ByteDocumentView;
@@ -22,5 +23,9 @@ public interface FichaService {
 	boolean save(DocumentoForm doc) throws IOException;
 
 	ByteDocumentView openDocument(Long docId);
+
+	void close(Long fichaId);
+	
+	List<FichaView> history(Long mujerId);
 
 }

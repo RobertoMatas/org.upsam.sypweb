@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.upsam.sypweb.controller.AbstractController;
 import org.upsam.sypweb.domain.citas.ejb.AppointmentHistoryBeanLocal;
 import org.upsam.sypweb.domain.citas.ejb.CitacionServiceBeanLocal;
-import org.upsam.sypweb.domain.user.UserDTO;
 import org.upsam.sypweb.facade.MujerServiceFacade;
 
 @Controller
@@ -46,7 +45,7 @@ public class CitasController extends AbstractController {
 
 	@RequestMapping({"/", "/cita/inicio"})
 	public String inicio(Model model, HttpSession session) {
-		model.addAttribute("citasParaHoy", citacionService.getDailyAppointment(((UserDTO) session.getAttribute("user")).getUserName()));
+		model.addAttribute("citasParaHoy", citacionService.getDailyAppointment(getUserName(session)));
 		return "inicio";
 	}
 	

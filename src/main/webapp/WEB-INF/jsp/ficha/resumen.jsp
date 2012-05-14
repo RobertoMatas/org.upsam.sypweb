@@ -30,6 +30,7 @@
 			<c:set var="parte1" value="if (window.confirm('¿Está seguro que desea cerrar la ficha?')) { window.location.href = '" />
 			<c:url var="myUrl" value="/ficha/close">
 				<c:param name="fichaId" value="${ficha.id}"/>
+				<c:param name="mujerId" value="${details.id}"/>
 			</c:url>
 			<c:set var="dir" value="${myUrl}" />
 			<c:set var="parte2" value="'; } return false;" />

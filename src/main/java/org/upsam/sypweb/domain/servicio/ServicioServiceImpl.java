@@ -50,14 +50,15 @@ public class ServicioServiceImpl implements ServicioService {
 	}
 
 	@Override
-	public List<ServicioView> getServicesBy(User user) {
+	public List<ServicioView> getServicesBy(String userName) {
+		User user = userRepository.findByUserName(userName);
 		if (user != null) {
 			if (Role.ROLE_ADMINISTRATIVO.equals(user.getAuthority())) {
-				servicioConverter.convert(servicioRepository.findAll());
+				return servicioConverter.convert(servicioRepository.findAll());
 				
 			} else if (Role.ROLE_ESPECIALISTA.equals(user.getAuthority())) {
 				QServicio servicio = QServicio.servicio;
-				servicioConverter.convert(servicioRepository.findAll(servicio.responsable.eq(user)));
+				return servicioConverter.convert(servicioRepository.findAll(servicio.responsable.eq(user)));
 			}
 		}
 		return servicioConverter.convert(servicioRepository.findAll());
