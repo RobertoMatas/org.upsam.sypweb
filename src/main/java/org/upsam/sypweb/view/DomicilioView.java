@@ -2,6 +2,8 @@ package org.upsam.sypweb.view;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
 public class DomicilioView implements Serializable {
 
 	/**
@@ -11,6 +13,7 @@ public class DomicilioView implements Serializable {
 	/**
 	 * 
 	 */
+	@NotNull
 	private Integer tipoDireccionId;
 	/**
 	 * 
@@ -43,6 +46,7 @@ public class DomicilioView implements Serializable {
 	/**
 	 * 
 	 */
+	@NotNull
 	private Integer provinciaId;
 	/**
 	 * 

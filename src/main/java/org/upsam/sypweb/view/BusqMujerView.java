@@ -2,6 +2,9 @@ package org.upsam.sypweb.view;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class BusqMujerView implements Serializable {
 
 	/**
@@ -11,18 +14,26 @@ public class BusqMujerView implements Serializable {
 	/**
 	 * 
 	 */
+	@NotNull
+	@Size(min = 1, max = 60)
 	private String nombre;
 	/**
 	 * 
 	 */
+	@NotNull
+	@Size(min = 1, max = 30)
 	private String apellido1;
 	/**
 	 * 
 	 */
+	@NotNull
+	@Size(min = 1, max = 30)
 	private String apellido2;
 	/**
 	 * 
 	 */
+	@NotNull
+	@Size(min = 1, max = 9)
 	private String dni;
 	/**
 	 * 

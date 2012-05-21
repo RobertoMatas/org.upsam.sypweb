@@ -18,8 +18,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.Valid;
-import javax.validation.constraints.Past;
 
 import org.upsam.sypweb.domain.aula.AulaAbierta;
 import org.upsam.sypweb.domain.citas.Citacion;
@@ -38,7 +36,6 @@ public class Mujer {
 	private Date fechaAlta;
 	
 	@Nullable
-	@Past
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaNac;
 
@@ -53,7 +50,6 @@ public class Mujer {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(unique = true)
-	@Valid
 	private Domicilio domicilio;
 
 	@OneToMany(mappedBy = "mujer")
@@ -63,7 +59,6 @@ public class Mujer {
 	private List<AulaAbierta> talleres = new ArrayList<AulaAbierta>();
 
 	@Embedded
-	@Valid
 	private Nombre nombre;
 
 	/**

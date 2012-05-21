@@ -1,11 +1,18 @@
 package org.upsam.sypweb.controller.mujer;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +39,13 @@ public class RegisterMujerController {
 		super();
 		this.mujerService = mujerService;
 	}
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+	}
 
 	@ModelAttribute("mujer")
 	public MujerView modelAttribute(@RequestParam(required = false) Long mujerId) {
@@ -46,7 +60,7 @@ public class RegisterMujerController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String submitEditForm(@Valid @ModelAttribute MujerView mujer, BindingResult result, Model model, SessionStatus status) {
+	public String submitEditForm(@Valid @ModelAttribute("mujer") MujerView mujer, BindingResult result, Model model, SessionStatus status) {
 		if (!result.hasErrors()) {
 			mujerService.save(mujer);
 			status.setComplete();
