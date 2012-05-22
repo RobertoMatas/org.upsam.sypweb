@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class FichaView implements Serializable {
 
 	/**
@@ -25,6 +28,8 @@ public class FichaView implements Serializable {
 	/**
 	 * 
 	 */
+	@NotNull
+	@Size(min = 1, max = 255)
 	private String descripcion;
 	/**
 	 * 

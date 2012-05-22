@@ -2,10 +2,12 @@ package org.upsam.sypweb.controller.ficha;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,16 +50,19 @@ public class FichaController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public String editFicha(@ModelAttribute("ficha") FichaView ficha, @RequestParam Long mujerId, HttpSession session, Model model) {
+	public String editFicha( @ModelAttribute("ficha") FichaView ficha, @RequestParam Long mujerId, HttpSession session, Model model) {
 		referenceData(mujerId, model);
 		return "ficha/edit";
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public String editFichaSubmit(@ModelAttribute("ficha") FichaView ficha, HttpSession session, Model model, SessionStatus status) {
-		fichaService.save(ficha);
-		status.setComplete();
-		return resumenFicha(ficha, ficha.getMujer().getId(), session, model);
+	public String editFichaSubmit(@Valid @ModelAttribute("ficha") FichaView ficha, BindingResult result, HttpSession session, Model model, SessionStatus status) {
+		if (! result.hasErrors()) {
+			fichaService.save(ficha);
+			status.setComplete();
+			return resumenFicha(ficha, ficha.getMujer().getId(), session, model);
+		}
+		return editFicha(ficha, ficha.getMujer().getId(), session, model);
 	}
 
 	@RequestMapping("/resumen")

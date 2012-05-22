@@ -2,9 +2,11 @@ package org.upsam.sypweb.controller.ficha;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,10 +50,13 @@ public class SeguimientosController extends AbstractController {
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String addSegFormSubmit(@ModelAttribute("seg") SeguimientoView seg, @RequestParam Long mujerId, SessionStatus status, HttpSession session) {		
-		fichaService.save(seg);
-		status.setComplete();
-		session.removeAttribute("ficha");
-		return "redirect:/ficha/resumen?mujerId=" + mujerId;
+	public String addSegFormSubmit(@Valid @ModelAttribute("seg") SeguimientoView seg, BindingResult result, @RequestParam Long mujerId, SessionStatus status, HttpSession session, Model model) {
+		if (! result.hasErrors()) {
+			fichaService.save(seg);
+			status.setComplete();
+			session.removeAttribute("ficha");
+			return "redirect:/ficha/resumen?mujerId=" + mujerId;
+		}
+		return addSegForm(mujerId, model);
 	}
 }

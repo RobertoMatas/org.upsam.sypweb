@@ -3,6 +3,9 @@ package org.upsam.sypweb.view;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class SeguimientoView implements Serializable {
 
 	/**
@@ -20,6 +23,8 @@ public class SeguimientoView implements Serializable {
 	/**
 	 * Observaciones
 	 */
+	@NotNull
+	@Size(min = 1, max = 255)
 	private String observaciones;
 
 	/**
