@@ -6,7 +6,7 @@
 	<div class="dropnav">
       <ul>
         <li>
-			<a href="<c:url value="/inicio.htm" />">Inicio</a>
+			<a href="<c:url value="/" />">Inicio</a>
 		</li>
       </ul>       
       <ul>

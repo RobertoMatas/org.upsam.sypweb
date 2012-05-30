@@ -1,3 +1,40 @@
+#background-image-andres
+{
+font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+font-size: 12px;
+margin: 45px;
+width: 650px;
+height: 100%;
+align: center;
+text-align: center;
+border-collapse: collapse;
+background: url(../img/whitebg.gif) no-repeat left ;
+background-size:650px 100%;
+
+
+}
+#background-image-andres th{
+padding: 12px;
+font-weight: bold;
+font-size: 14px;
+color: #298A08;
+}
+#background-image-andres td
+{
+padding: 9px 12px;
+color: #088A68;
+border-top: 1px solid #fff;
+
+}
+
+#background-image-andres tbody tr:hover td
+{
+color: #B18904;
+background: none;
+}
+
+***************************
+
 .dlist { 
 	font-family:Verdana,Arial,Helvetica,sans-serif;
 	color:#000;

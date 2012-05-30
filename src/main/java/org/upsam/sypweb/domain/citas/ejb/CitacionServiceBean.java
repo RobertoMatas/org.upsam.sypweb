@@ -107,6 +107,10 @@ public class CitacionServiceBean implements CitacionServiceBeanLocal {
 	public List<CitacionView> getDailyAppointment(String userName) {
 		UserDTO user = servicioService.findUserByUserName(userName);
 		ServicioDTO servicio = user.getServicio();
+		// usuario no especialista
+		if (servicio == null) {
+			return null;
+		}
 		QCitacion cita = QCitacion.citacion;
 		Date now = new Date();
 		DateFormat df = new SimpleDateFormat("HHmmss");

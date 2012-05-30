@@ -13,11 +13,29 @@
 <body id="main">
 <my:cabecera />
 <my:menu />
-<br />
-<h2>Últimas citas concedidas en esta sesión</h2>
-
+<center>
+<table   id="background-image-andres" >
+<thead>
+<tr>
+<th colspan="4">Ultimas citas concedidas</th>
+</tr>
+<tr>
+<th >Nombre</th>
+<th >Servicio</th>
+<th >D&iacute;a asignado</th>
+<th >Hora asignada</th>
+</tr>
+</thead>
+<tbody>
 <c:forEach items="${history }" var="h">
-	<c:out value="${h }" /><br/>
+	<tr>
+	<td><c:out value="${h.nombre}"></c:out></td><td><c:out value="${h.servicio }"></c:out></td><td><c:out value="${h.cita }"></c:out></td><td><c:out value="${h.hora }"></c:out></td>
+	</tr>
 </c:forEach>
+</tbody>
+</table>
+</center>
+
+
 </body>
 </html>
